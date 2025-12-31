@@ -3,8 +3,9 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -39,4 +40,7 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<Genre> genres = new HashSet<>();
+
+    @OneToMany(mappedBy = "movie")
+    private List<Session> sessionList = new ArrayList<>();
 }

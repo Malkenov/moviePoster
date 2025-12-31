@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,11 +19,6 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Кино")
-    private String movie;
-
-    @Column(name = "Кинотеатр")
-    private String cinema;
 
     @Column(name = "Начало сеанса")
     private Integer startTime;
@@ -30,17 +26,12 @@ public class Session {
     @Column(name = "Цена",precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Session session = (Session) o;
-        return Objects.equals(id, session.id) && Objects.equals(movie, session.movie) && Objects.equals(cinema, session.cinema) && Objects.equals(startTime, session.startTime) && Objects.equals(price, session.price);
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cinema_id")
+    private Cinema cinemas;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, movie, cinema, startTime, price);
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "movie_id")
+    private Movie movies;
 
 }
