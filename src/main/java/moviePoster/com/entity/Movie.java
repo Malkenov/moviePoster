@@ -41,6 +41,6 @@ public class Movie {
     )
     private Set<Genre> genres = new HashSet<>();
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movies")
     private List<Session> sessionList = new ArrayList<>();
 }
