@@ -1,5 +1,6 @@
 package moviePoster.com.repository;
 
+import moviePoster.com.entity.Movie;
 import moviePoster.com.entity.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,17 +23,17 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
 
     @Query("""
-        SELECT s FROM Session s
-        JOIN FETCH s.movie m
-        JOIN FETCH s.cinema c
-        WHERE (:city IS NULL OR c.city = :city)
-         AND (:date IS NULL OR DATE (s.startTime) = :date)
-        ORDER BY s.startTime
-    """)
-    List<Session> findForAfisha(
-            @Param("city") String city,
-            @Param("date") LocalDate date
-        );
+    SELECT s FROM Session s
+    JOIN FETCH s.movie m
+    JOIN FETCH s.cinema c
+    WHERE (:city IS NULL OR c.city = :city)
+      AND (:startOfDay IS NULL OR s.startTime >= :startOfDay)
+      AND (:endOfDay IS NULL OR s.startTime < :endOfDay)
+    ORDER BY s.startTime
+""")
+
+    List<Session> findByMovieIn(List<Movie> movies);
+
 }
 
 
