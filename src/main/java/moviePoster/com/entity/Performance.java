@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Спектакль")
+@Table(name = "Театр")
 public class Performance {
 
     @Id
@@ -27,8 +27,6 @@ public class Performance {
     @Column(name = "Возрастное ограничение")
     private int age_limit;
 
-    @Column(name = "Место проведение")
-    private String theatre_type;
 
     @ManyToOne
     @JoinColumn(name = "events_id")
@@ -37,4 +35,8 @@ public class Performance {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
+
+    @ManyToOne
+    @JoinColumn(name = "theatre_id")
+    private Theatre theatre;
 }

@@ -2,8 +2,6 @@ package moviePoster.com.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -12,27 +10,25 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Концерт")
-public class Concert {
+@Table(name = "Концертные площадки")
+public class Venue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Имя")
+    @Column(name = "Название")
     private String name;
 
     @Column(name = "Описание")
     private String title;
 
-    @Column(name = "Возрастное ограничение")
-    private int age_limit;
+    @Column(name = "Адрес")
+    private String address;
 
-    @ManyToOne
-    @JoinColumn(name = "events_id")
-    private Events events;
+    @Column(name = "Город")
+    private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "venue_id")
-    private Venue venue;
+    @OneToMany(mappedBy = "venue")
+    private List<Concert> concertList;
 }
