@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.List;
 
 @Setter
 @Getter
@@ -25,4 +25,7 @@ public class Genre {
 
     @ManyToMany(mappedBy = "genres")
     private Set<Movie> movies = new HashSet<>();
+
+    @OneToMany(mappedBy = "genre")
+    private List<Performance> performanceList;
 }

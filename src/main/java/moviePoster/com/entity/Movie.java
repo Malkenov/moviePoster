@@ -43,4 +43,8 @@ public class Movie {
 
     @OneToMany(mappedBy = "movies")
     private List<Session> sessionList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "events_id")
+    private Events events;
 }

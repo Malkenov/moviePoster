@@ -24,5 +24,11 @@ public class Events {
     private String name;
 
     @OneToMany(mappedBy = "events")
+    private List<Movie> movieList;
+
+    @OneToMany(mappedBy = "events")
     private List<Concert> concertList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "events")
+    private List<Performance> performanceList;
 }
