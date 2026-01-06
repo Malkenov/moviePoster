@@ -2,7 +2,9 @@ package moviePoster.com.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
+
+import java.time.LocalDateTime;
+
 
 @Setter
 @Getter
@@ -10,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Театр")
-public class Performance {
+@Table(name = "Туры")
+public class Tours {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,16 +31,16 @@ public class Performance {
     @Column(name = "Цена")
     private Double price;
 
+    @Column(name = "Дата")
+    private LocalDateTime dataTime;
+
 
     @ManyToOne
     @JoinColumn(name = "events_id")
     private Events events;
 
     @ManyToOne
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
+    @JoinColumn(name = "tourCompany_id")
+    private Tour_company tourCompany;
 
-    @ManyToOne
-    @JoinColumn(name = "theatre_id")
-    private Theatre theatre;
 }

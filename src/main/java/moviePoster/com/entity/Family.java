@@ -1,8 +1,8 @@
 package moviePoster.com.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
 
 @Setter
 @Getter
@@ -10,8 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Театр")
-public class Performance {
+@Table(name = "Семья")
+public class Family {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +35,10 @@ public class Performance {
     private Events events;
 
     @ManyToOne
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
+    @JoinColumn(name = "venue_id")
+    private Venue venue;
 
     @ManyToOne
-    @JoinColumn(name = "theatre_id")
-    private Theatre theatre;
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

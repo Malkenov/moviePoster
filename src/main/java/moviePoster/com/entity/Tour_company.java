@@ -2,6 +2,8 @@ package moviePoster.com.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalTime;
 import java.util.List;
 
 @Setter
@@ -10,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Концертные площадки")
-public class Venue {
+@Table(name = "Тур компании")
+public class Tour_company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +25,12 @@ public class Venue {
     @Column(name = "Описание")
     private String title;
 
-    @Column(name = "Адрес")
-    private String address;
-
     @Column(name = "Город")
     private String city;
 
-    @OneToMany(mappedBy = "venue")
-    private List<Concert> concertList;
+    @Column(name = "Время работы")
+    private LocalTime localTime;
 
-    @OneToMany(mappedBy = "venue")
-    private List<Family> familyList;
+    @OneToMany(mappedBy = "tourCompany")
+    private List<Tours> tourList;
 }
