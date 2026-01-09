@@ -20,6 +20,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+          // Проверяет токен в каждом запросе
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;

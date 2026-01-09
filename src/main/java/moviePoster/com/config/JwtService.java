@@ -19,8 +19,10 @@ import java.util.function.Function;
 @Component
 @RequiredArgsConstructor
 public class JwtService {
+    // Создать и проверить токен
 
     private final JwtSecurityConfigProperties jwtSecurityConfigProperties;
+    // Здесь приходят настройки из application.yml
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -57,13 +59,14 @@ public class JwtService {
                               UserDetails userDetails, Long expiration) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
+                .setSubject(userDetails.getUsername())             // email пользователя
+                .setIssuedAt(new Date(System.currentTimeMillis())) // когда токен создан
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // когда токен тухнет
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256) // подписываем токен секретным ключом
+                .compact();                                         // превращаем всё в строку
     }
 
+    // Проверяет - токен не протух
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
@@ -79,10 +82,10 @@ public class JwtService {
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
+                .setSigningKey(getSignInKey()) // ключ
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseClaimsJws(token) // проверка подписи
+                .getBody();            // claims
     }
 
 
