@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,5 +16,7 @@ public class MovieResponseDto {
     private String description;
     private Integer duration;
     private Double ageRating;
-    private Set<String> genres;
+    private Set<Long> genreId;
+    private List<Long> sessionId;
+    private Long eventsId;
 }
