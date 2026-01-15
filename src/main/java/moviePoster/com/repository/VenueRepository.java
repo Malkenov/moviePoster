@@ -3,5 +3,5 @@ package moviePoster.com.repository;
 import moviePoster.com.entity.Venue;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface VenueRepository extends JpaRepository<Long, Venue> {
+public interface VenueRepository extends JpaRepository<Venue, Long> {
 }
