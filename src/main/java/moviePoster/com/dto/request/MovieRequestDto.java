@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,4 +17,6 @@ public class MovieRequestDto {
     private Integer duration;
     private Double ageRating;
     private Set<Long> genreId;
+    private List<Long> sessionId;
+    private Long eventsId;
 }
