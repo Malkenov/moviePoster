@@ -41,6 +41,6 @@ public class Tours {
 
     @ManyToOne
     @JoinColumn(name = "tourCompany_id")
-    private Tour_company tourCompany;
+    private TourCompany tourCompany;
 
 }
