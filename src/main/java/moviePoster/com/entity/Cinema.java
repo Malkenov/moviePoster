@@ -23,12 +23,13 @@ public class Cinema {
     @Column(name = "Название")
     private String name;
 
-    @Column(name = "Город")
-    private String city;
-
     @Column(name = "Адрес")
     private String address;
 
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     @OneToMany(mappedBy = "cinemas")
     private List<Session> sessionList = new ArrayList<>();
@@ -36,4 +37,6 @@ public class Cinema {
     @OneToMany(mappedBy = "cinema")
     private List<FavouritesCinema> favouritesCinemas;
 
+    @OneToMany(mappedBy = "cinema")
+    private List<Hall> hall;
 }

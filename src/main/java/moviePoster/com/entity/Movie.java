@@ -21,17 +21,27 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "Название фильма")
+    private String name;
+
+    @Column(name = "Описание")
     private String title;
 
-    @Column(length = 2000)
-    private String description;
+    @Column(name = "Премьера")
+    private Boolean isPremiere;
+
+    @Column(name = "Возрастное ограничение")
+    private int age_limit;
 
     @Column(name = "Продолжительность")
     private Integer duration;
 
     @Column(name = "Рейтинг")
     private Double ageRating;
+
+    @Column(name = "Язык")
+    private String language;
+
 
     @ManyToMany
     @JoinTable(

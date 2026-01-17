@@ -3,7 +3,6 @@ package moviePoster.com.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
 
 @Setter
 @Getter
@@ -11,19 +10,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Город")
-public class City {
+@Table(name = "Залы")
+public class Hall {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Название")
+    @Column(name = "Название зала")
     private String name;
 
-    @OneToOne(mappedBy = "city")
-    private Users user;
-
-    @OneToMany(mappedBy = "city")
-    private List<Cinema> cinemas;
+    @ManyToOne
+    @JoinColumn(name = "cinema_id")
+    private Cinema cinema;
 }

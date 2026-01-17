@@ -19,12 +19,9 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "Начало сеанса")
     private Integer startTime;
 
-    @Column(name = "Цена",precision = 10, scale = 2)
-    private BigDecimal price;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cinema_id")
@@ -33,5 +30,8 @@ public class Session {
     @ManyToOne(optional = false)
     @JoinColumn(name = "movie_id")
     private Movie movies;
+
+    @OneToMany(mappedBy = "session")
+    private List<Price> price;
 
 }
