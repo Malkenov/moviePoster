@@ -47,4 +47,7 @@ public class Movie {
     @ManyToOne
     @JoinColumn(name = "events_id")
     private Events events;
+
+    @OneToOne(mappedBy = "movie")
+    private Review review;
 }

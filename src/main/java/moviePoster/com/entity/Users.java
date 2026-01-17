@@ -30,7 +30,10 @@ public class Users  implements UserDetails{
     private String name;
 
     @Column(name = "День рождение")
-    private LocalDate dateOfBirthday;
+    private LocalDate dateOfBirth;
+
+    @Column(name = "Телефон")
+    private int phone;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -38,9 +41,16 @@ public class Users  implements UserDetails{
     @Column(name = "Пароль")
     private String password;
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
     private City city;
+
+    @OneToMany(mappedBy = "user")
+    private List<FavouritesCinema> favouritesCinemas;
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
 
     @Enumerated(EnumType.STRING)
     @JoinColumn(name = "role_id")

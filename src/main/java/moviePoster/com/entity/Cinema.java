@@ -32,4 +32,8 @@ public class Cinema {
 
     @OneToMany(mappedBy = "cinemas")
     private List<Session> sessionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cinema")
+    private List<FavouritesCinema> favouritesCinemas;
+
 }
