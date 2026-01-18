@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,6 +42,34 @@ public class Users  implements UserDetails{
     @Column(name = "Пароль")
     private String password;
 
+    @Column(name = "Создание", updatable = false)
+    private LocalDateTime created_at;
+
+    @Column(name = "Обновление")
+    private LocalDateTime modified_at;
+
+
+    // автоматический устанавливается при создании
+    @PrePersist
+    protected void onCreate(){
+        this.created_at = LocalDateTime.now();
+        this.modified_at = LocalDateTime.now();
+    }
+
+    // срабатывает обновление записи
+    @PrePersist
+    protected void onUpdate(){
+        this.modified_at = LocalDateTime.now();
+    }
+
+    @Column(name = "Подтверждение телефона")
+    private Boolean phone_verified_at;
+
+    @Column(name = "Подтверждение почты")
+    private Boolean email_verified_at;
+
+    @Column
+    private Boolean is_active;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
@@ -50,9 +79,12 @@ public class Users  implements UserDetails{
     private List<FavouritesCinema> favouritesCinemas;
 
     @OneToMany(mappedBy = "user")
+    private List<Ticket> tickets;
+
+    @OneToMany(mappedBy = "user")
     private List<Review> reviews;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 

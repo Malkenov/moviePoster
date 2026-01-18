@@ -34,4 +34,7 @@ public class Session {
     @OneToMany(mappedBy = "session")
     private List<Price> price;
 
+    @OneToOne(mappedBy = "session")
+    private Ticket ticket;
+
 }
