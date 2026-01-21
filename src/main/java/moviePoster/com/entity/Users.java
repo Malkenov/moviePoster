@@ -87,6 +87,9 @@ public class Users  implements UserDetails{
     @OneToMany(mappedBy = "user")
     private List<AuthSessions> authSessions;
 
+    @OneToMany(mappedBy = "user")
+    private List<Otp_codes> otpCodes;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
