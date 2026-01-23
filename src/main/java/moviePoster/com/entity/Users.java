@@ -34,7 +34,7 @@ public class Users  implements UserDetails{
     private LocalDate dateOfBirth;
 
     @Column(name = "Телефон")
-    private int phone;
+    private String phone;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -57,7 +57,7 @@ public class Users  implements UserDetails{
     }
 
     // срабатывает обновление записи
-    @PrePersist
+    @PreUpdate
     protected void onUpdate(){
         this.modified_at = LocalDateTime.now();
     }
