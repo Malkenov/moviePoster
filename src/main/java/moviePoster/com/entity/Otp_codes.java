@@ -64,7 +64,7 @@ public class Otp_codes {
         this.modified_at = LocalDateTime.now();
     }
 
-    @PrePersist
+    @PreUpdate
     protected void onUpdate(){
         this.modified_at = LocalDateTime.now();
     }

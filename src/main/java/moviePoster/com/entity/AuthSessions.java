@@ -19,7 +19,7 @@ public class AuthSessions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Токен рефреш")
+    @Column(name = "Токен рефреш",unique = true)
     private String refresh_token;
 
     @Column(name = "Время истечения")
@@ -43,7 +43,7 @@ public class AuthSessions {
     }
 
     // срабатывает обновление записи
-    @PrePersist
+    @PreUpdate
     protected void onUpdate(){
         this.modified_at = LocalDateTime.now();
     }

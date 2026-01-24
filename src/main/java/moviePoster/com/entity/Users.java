@@ -1,8 +1,11 @@
 package moviePoster.com.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import moviePoster.com.enums.Role;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,24 +30,31 @@ public class Users  implements UserDetails{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(name = "Имя")
     private String name;
 
+    @NotNull
     @Column(name = "День рождение")
     private LocalDate dateOfBirth;
 
+    @NotNull
     @Column(name = "Телефон")
     private String phone;
 
+    @NotBlank
     @Column(unique = true, nullable = false)
     private String email;
 
+    @NotBlank
     @Column(name = "Пароль")
     private String password;
 
+    @NotNull
     @Column(name = "Создание", updatable = false)
     private LocalDateTime created_at;
 
+    @NotNull
     @Column(name = "Обновление")
     private LocalDateTime modified_at;
 
@@ -62,14 +72,16 @@ public class Users  implements UserDetails{
         this.modified_at = LocalDateTime.now();
     }
 
+
     @Column(name = "Подтверждение телефона")
-    private Boolean phone_verified_at;
+    private boolean is_phone_verified;
 
     @Column(name = "Подтверждение почты")
-    private Boolean email_verified_at;
+    private boolean is_email_verified;
 
     @Column
-    private Boolean is_active;
+    @ColumnDefault("true")
+    private boolean is_active;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
