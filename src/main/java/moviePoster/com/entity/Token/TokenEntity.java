@@ -2,7 +2,7 @@ package moviePoster.com.entity.Token;
 
 import jakarta.persistence.*;
 import lombok.*;
-import moviePoster.com.entity.Users;
+import moviePoster.com.entity.UserSession;
 import moviePoster.com.enums.TokenType;
 
 @Builder
@@ -30,6 +30,6 @@ public class TokenEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users users;
+    private UserSession users;
 }
 

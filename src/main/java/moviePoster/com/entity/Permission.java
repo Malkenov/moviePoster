@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Category")
-public class Category {
+@Table(name = "Permission")
+public class Permission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Category {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "created_at")
+    @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
 
@@ -42,7 +42,6 @@ public class Category {
         this.modifiedAt = LocalDateTime.now();
     }
 
-
-    @OneToMany(mappedBy = "category")
-    private List<Family> familyList;
+    @ManyToMany(mappedBy = "permission")
+    private List<Role> role;
 }

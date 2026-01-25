@@ -44,8 +44,8 @@ public class City {
     }
 
 
-    @OneToOne(mappedBy = "city")
-    private Users user;
+    @OneToMany(mappedBy = "city")
+    private UserSession user;
 
     @OneToMany(mappedBy = "city")
     private List<Cinema> cinemas;

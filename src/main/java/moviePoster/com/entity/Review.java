@@ -19,37 +19,37 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Оценка")
+    @Column(name = "grade",nullable = false)
     private int grade;
 
-    @Column(name = "Комментарий")
+    @Column(name = "title",nullable = false)
     private String title;
 
-    @Column(name = "Создание", updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "Обновление")
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
 
     // автоматический устанавливается при создании
     @PrePersist
     protected void onCreate(){
-        this.created_at = LocalDateTime.now();
-        this.modified_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     // срабатывает обновление записи
     @PreUpdate
     protected void onUpdate(){
-        this.modified_at = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
 
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private UserSession user;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "movie_id")

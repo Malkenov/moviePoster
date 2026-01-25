@@ -14,46 +14,46 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Билеты")
+@Table(name = "Ticket")
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Ряд",unique = true,nullable = false)
+    @Column(name = "row",unique = true,nullable = false)
     @Positive
     private int row;
 
-    @Column(name = "Место",unique = true,nullable = false)
+    @Column(name = "place",unique = true,nullable = false)
     @Positive
     private int place;
 
 
-    @Column(name = "Создание", updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "Обновление")
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
 
     // автоматический устанавливается при создании
     @PrePersist
     protected void onCreate(){
-        this.created_at = LocalDateTime.now();
-        this.modified_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     // срабатывает обновление записи
     @PreUpdate
     protected void onUpdate(){
-        this.modified_at = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private UserSession user;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "session_id",unique = true)

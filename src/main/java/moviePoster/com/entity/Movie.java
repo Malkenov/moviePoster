@@ -15,52 +15,52 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Пользователи")
+@Table(name = "Movie")
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Название фильма")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "Описание")
+    @Column(name = "title",nullable = false)
     private String title;
 
-    @Column(name = "Премьера")
+    @Column(name = "isPremiere")
     private Boolean isPremiere;
 
-    @Column(name = "Возрастное ограничение")
-    private int age_limit;
+    @Column(name = "age_limit",nullable = false)
+    private int ageLimit;
 
-    @Column(name = "Продолжительность")
+    @Column(name = "duration",nullable = false)
     private Integer duration;
 
-    @Column(name = "Рейтинг")
+    @Column(name = "age_rating",nullable = false)
     private Double ageRating;
 
-    @Column(name = "Язык")
+    @Column(name = "language",nullable = false)
     private String language;
 
-    @Column(name = "Создание", updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "Обновление")
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
 
     // автоматический устанавливается при создании
     @PrePersist
     protected void onCreate(){
-        this.created_at = LocalDateTime.now();
-        this.modified_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     // срабатывает обновление записи
     @PreUpdate
     protected void onUpdate(){
-        this.modified_at = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
 

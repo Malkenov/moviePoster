@@ -3,7 +3,7 @@ package moviePoster.com.mapper;
 
 import moviePoster.com.dto.request.UserRequestDto;
 import moviePoster.com.dto.response.UserResponseDto;
-import moviePoster.com.entity.Users;
+import moviePoster.com.entity.UserSession;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,7 +17,7 @@ public interface UserMapper {
     @Mapping(target = "authSessions", ignore = true)
     @Mapping(target = "otpCodes", ignore = true)
     @Mapping(target = "role", ignore = true)
-    Users toEntity(UserRequestDto dto);
+    UserSession toEntity(UserRequestDto dto);
 
-    UserResponseDto toDto(Users user);
+    UserResponseDto toDto(UserSession user);
 }

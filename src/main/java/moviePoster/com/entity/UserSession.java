@@ -23,67 +23,67 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Пользователи")
-public class Users  implements UserDetails{
+@Table(name = "UserSession")
+public class UserSession implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Column(name = "Имя")
+    @Column(name = "name",nullable = false)
     private String name;
 
     @NotNull
-    @Column(name = "День рождение")
+    @Column(name = "date_of_birth",nullable = false)
     private LocalDate dateOfBirth;
 
     @NotNull
-    @Column(name = "Телефон")
+    @Column(name = "phone",nullable = false)
     private String phone;
 
     @NotBlank
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @NotBlank
-    @Column(name = "Пароль")
+    @Column(name = "password",nullable = false)
     private String password;
 
     @NotNull
-    @Column(name = "Создание", updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
     @NotNull
-    @Column(name = "Обновление")
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
 
     // автоматический устанавливается при создании
     @PrePersist
     protected void onCreate(){
-        this.created_at = LocalDateTime.now();
-        this.modified_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     // срабатывает обновление записи
     @PreUpdate
     protected void onUpdate(){
-        this.modified_at = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
 
-    @Column(name = "Подтверждение телефона")
-    private boolean is_phone_verified;
+    @Column(name = "is_phone_verified", nullable = false)
+    private boolean isPhoneVerified;
 
-    @Column(name = "Подтверждение почты")
-    private boolean is_email_verified;
+    @Column(name = "is_email_verified",nullable = false)
+    private boolean isEmailVerified;
 
-    @Column
+    @Column(name = "is_active")
     @ColumnDefault("true")
-    private boolean is_active;
+    private boolean isActive;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
     private City city;
 
@@ -100,7 +100,7 @@ public class Users  implements UserDetails{
     private List<AuthSessions> authSessions;
 
     @OneToMany(mappedBy = "user")
-    private List<Otp_codes> otpCodes;
+    private List<OtpCode> otpCode;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

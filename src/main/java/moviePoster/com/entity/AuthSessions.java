@@ -19,36 +19,36 @@ public class AuthSessions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Токен рефреш",unique = true)
-    private String refresh_token;
+    @Column(name = "refresh_token",unique = true)
+    private String refreshToken;
 
-    @Column(name = "Время истечения")
-    private Double expires_at;
+    @Column(name = "expires_at",nullable = false)
+    private Double expiresAt;
 
-    @Column(name = "Логаут")
-    private Boolean revoked;
+    @Column(name = "revoked")
+    private Boolean revoked = false;
 
-    @Column(name = "Создание", updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "Обновление")
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
 
     // автоматический устанавливается при создании
     @PrePersist
     protected void onCreate(){
-        this.created_at = LocalDateTime.now();
-        this.modified_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     // срабатывает обновление записи
     @PreUpdate
     protected void onUpdate(){
-        this.modified_at = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private UserSession user;
 }

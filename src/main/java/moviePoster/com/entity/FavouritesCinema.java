@@ -47,5 +47,5 @@ public class FavouritesCinema {
 
     @ManyToOne
     @JoinColumn(name = "user_id",unique = true)
-    private Users user;
+    private UserSession user;
 }
