@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Кинотеатры")
+@Table(name = "Cinema")
 public class Cinema {
 
     @Id

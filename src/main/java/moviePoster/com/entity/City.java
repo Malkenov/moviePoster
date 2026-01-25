@@ -13,34 +13,34 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Город")
+@Table(name = "City")
 public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Название")
+    @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "Создание", updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "Обновление")
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
 
     // автоматический устанавливается при создании
     @PrePersist
     protected void onCreate(){
-        this.created_at = LocalDateTime.now();
-        this.modified_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     // срабатывает обновление записи
     @PreUpdate
     protected void onUpdate(){
-        this.modified_at = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
 
