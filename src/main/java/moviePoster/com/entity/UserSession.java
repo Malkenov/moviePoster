@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import moviePoster.com.entity.Token.TokenEntity;
 import moviePoster.com.enums.Role;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
@@ -105,6 +106,9 @@ public class UserSession implements UserDetails{
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "users")
+    private List<TokenEntity> tokenEntities;
 
 
     @Override
