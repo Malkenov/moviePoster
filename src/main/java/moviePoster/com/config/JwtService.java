@@ -24,18 +24,68 @@ public class JwtService {
     private final JwtSecurityConfigProperties jwtSecurityConfigProperties;
     // Здесь приходят настройки из application.yml
 
+
+
+    private String buildToken(Map<String, Object> claims,
+                              UserDetails userDetails, Long expiration) {
+        // claims - доп поля, которые хочешь заполнить(id,role,phone)
+        // userDetails - содержит email, пароль, роли
+        // expiration - время жизни токена
+
+        return Jwts.builder() // создаёт объект, который будет собирать токен шаг за шагом
+                .setClaims(claims) // Добавляем дополнительные поля, если claims пустой — ничего страшного
+                .setSubject(userDetails.getUsername())             // email пользователя
+                .setIssuedAt(new Date(System.currentTimeMillis())) // когда токен создан
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // когда токен тухнет
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256) // подписываем токен секретным ключом
+                .compact();                                         // превращаем всё в строку (токен)
+    }
+    // Создание токена
+
+    /* --------------------------------------------------------------------------------*/
+
+
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+    // Метод берет токен и с него достает пользователя по email
+
+
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
+    // Метод с помощью токена, берет его же нужные поля
+
+
+
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignInKey()) // ключ, которым подписан токен
+                .build()
+                .parseClaimsJws(token) // проверка подписи
+                .getBody();            // возвращает claims
+    }
+    // Проверяет подпись токена, а так же его расшифровывает и возвращает все его поля
+
+
+    private SecretKey getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecurityConfigProperties.getSecretKey());
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+    // Метод возвращает секретный ключ, который подписывается токен при регистрации и авторизации
+
+
+    /* --------------------------------------------------------------------------------*/
+
 
     public String generateAccessToken(UserDetails userDetails) {
         return generateAccessToken(new HashMap<>(), userDetails);
     }
+
+
 
     public String generateAccessToken(Map<String, Object> claims,
                                       UserDetails userDetails) {
@@ -44,9 +94,13 @@ public class JwtService {
         return buildToken(claims, userDetails, accessTokenExpiration);
     }
 
+
+
     public String generateRefreshToken(UserDetails userDetails) {
         return generateRefreshToken(new HashMap<>(), userDetails);
     }
+
+
 
     public String generateRefreshToken(Map<String, Object> claims,
                                        UserDetails userDetails) {
@@ -55,16 +109,11 @@ public class JwtService {
         return buildToken(claims, userDetails, accessTokenExpiration);
     }
 
-    private String buildToken(Map<String, Object> claims,
-                              UserDetails userDetails, Long expiration) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(userDetails.getUsername())             // email пользователя
-                .setIssuedAt(new Date(System.currentTimeMillis())) // когда токен создан
-                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // когда токен тухнет
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256) // подписываем токен секретным ключом
-                .compact();                                         // превращаем всё в строку
-    }
+
+
+
+
+
 
     // Проверяет - токен не протух
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -80,18 +129,6 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSignInKey()) // ключ
-                .build()
-                .parseClaimsJws(token) // проверка подписи
-                .getBody();            // claims
-    }
 
-
-    private SecretKey getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecurityConfigProperties.getSecretKey());
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
 }
 
