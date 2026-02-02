@@ -26,6 +26,51 @@ public class JwtService {
 
 
 
+    private SecretKey getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecurityConfigProperties.getSecretKey());
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+    // Метод возвращает секретный ключ, который подписывается токен при регистрации и авторизации
+
+
+    /* --------------------------------------------------------------------------------*/
+
+
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignInKey()) // ключ, которым подписан токен
+                .build()
+                .parseClaimsJws(token) // проверка подписи
+                .getBody();            // возвращает claims
+    }
+    // Проверяет подпись токена, а так же его расшифровывает и возвращает все его поля
+
+
+
+    /* --------------------------------------------------------------------------------*/
+
+
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
+    }
+    // Метод с помощью токена, берет его же нужные поля
+
+
+
+    /* --------------------------------------------------------------------------------*/
+
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+    // Метод берет токен и с него достает пользователя по email
+
+
+    /* --------------------------------------------------------------------------------*/
+
+
     private String buildToken(Map<String, Object> claims,
                               UserDetails userDetails, Long expiration) {
         // claims - доп поля, которые хочешь заполнить(id,role,phone)
@@ -41,41 +86,6 @@ public class JwtService {
                 .compact();                                         // превращаем всё в строку (токен)
     }
     // Создание токена
-
-    /* --------------------------------------------------------------------------------*/
-
-
-
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-    // Метод берет токен и с него достает пользователя по email
-
-
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaimsFromToken(token);
-        return claimsResolver.apply(claims);
-    }
-    // Метод с помощью токена, берет его же нужные поля
-
-
-
-    private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSignInKey()) // ключ, которым подписан токен
-                .build()
-                .parseClaimsJws(token) // проверка подписи
-                .getBody();            // возвращает claims
-    }
-    // Проверяет подпись токена, а так же его расшифровывает и возвращает все его поля
-
-
-    private SecretKey getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecurityConfigProperties.getSecretKey());
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
-    // Метод возвращает секретный ключ, который подписывается токен при регистрации и авторизации
 
 
     /* --------------------------------------------------------------------------------*/
