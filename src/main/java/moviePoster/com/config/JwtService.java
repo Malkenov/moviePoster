@@ -97,11 +97,14 @@ public class JwtService {
 
 
 
-    public String generateAccessToken(Map<String, Object> claims,
-                                      UserDetails userDetails) {
-        Long accessTokenExpiration = jwtSecurityConfigProperties.getAccessToken().getExpiration();
+    public String generateAccessToken(Map<String, Object> claims, // claims дополнительные данные, которые будут записаны в токен
+                                      UserDetails userDetails) {  // userDetails объект пользователя (обычно содержит email, пароль, роли)
+        Long accessTokenExpiration = jwtSecurityConfigProperties
+                .getAccessToken().
+                getExpiration(); // Получаем время жизни access-токена
 
-        return buildToken(claims, userDetails, accessTokenExpiration);
+        return buildToken(claims, userDetails, accessTokenExpiration); // вызывает общий метод сборки токена, и передаёт время жизни access
+        // создает Access Token для пользователя
     }
 
 
