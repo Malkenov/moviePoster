@@ -115,11 +115,12 @@ public class JwtService {
 
 
 
-    public String generateRefreshToken(Map<String, Object> claims,
-                                       UserDetails userDetails) {
-        Long accessTokenExpiration = jwtSecurityConfigProperties.getRefreshToken().getExpiration();
+    public String generateRefreshToken(Map<String, Object> claims, // claims доп данные который записываются в токен
+                                       UserDetails userDetails) {  // userDetails объект пользователя
+        Long accessTokenExpiration = jwtSecurityConfigProperties.getRefreshToken().getExpiration(); // тут вызывается время жизни refresh токена
 
-        return buildToken(claims, userDetails, accessTokenExpiration);
+        return buildToken(claims, userDetails, accessTokenExpiration); // вызывает общий метод сборки токена
+        // создает Refresh Token для пользователя
     }
 
 
@@ -130,17 +131,20 @@ public class JwtService {
 
     // Проверяет - токен не протух
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
+        final String username = extractUsername(token); // Из токена достается email/username
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+             // тут сравнивается username, принадлежит ли он ему, а тут токен НЕ должен быть просрочен
     }
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
+    // метод берет дату истечение токена, и сверяет с настоящим временем
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
+    // метод из токена достаёт поле exp, и возвращает виде Data
 
 
 }
