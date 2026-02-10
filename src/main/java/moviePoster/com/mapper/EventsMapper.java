@@ -2,7 +2,6 @@ package moviePoster.com.mapper;
 
 import moviePoster.com.dto.request.EventsRequestDto;
 import moviePoster.com.dto.response.EventsResponseDto;
-import moviePoster.com.entity.Events;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

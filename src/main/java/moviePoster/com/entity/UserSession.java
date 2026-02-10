@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,12 +23,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "UserSession")
-public class UserSession implements UserDetails{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "userSession")
+public class UserSession extends BaseEntity implements UserDetails {
 
     @NotBlank
     @Column(name = "name",nullable = false)
@@ -50,28 +45,6 @@ public class UserSession implements UserDetails{
     @NotBlank
     @Column(name = "password",nullable = false)
     private String password;
-
-    @NotNull
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @NotNull
-    @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
-
-
-    // автоматический устанавливается при создании
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-    // срабатывает обновление записи
-    @PreUpdate
-    protected void onUpdate(){
-        this.modifiedAt = LocalDateTime.now();
-    }
 
 
     @Column(name = "is_phone_verified", nullable = false)

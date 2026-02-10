@@ -15,12 +15,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Movie")
-public class Movie {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "movie")
+public class Movie extends BaseEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -43,27 +39,6 @@ public class Movie {
     @Column(name = "language",nullable = false)
     private String language;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
-
-
-    // автоматический устанавливается при создании
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-    // срабатывает обновление записи
-    @PreUpdate
-    protected void onUpdate(){
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-
 
     @ManyToMany
     @JoinTable(
@@ -76,9 +51,6 @@ public class Movie {
     @OneToMany(mappedBy = "movies")
     private List<Session> sessionList = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "events_id")
-    private Events events;
 
     @OneToOne(mappedBy = "movie")
     private Review review;

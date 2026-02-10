@@ -14,39 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Cinema")
-public class Cinema {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "cinema")
+public class Cinema extends BaseEntity {
 
     @Column(name = "name",nullable = false)
     private String name;
 
     @Column(name = "address",nullable = false)
     private String address;
-
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
-
-
-    // автоматический устанавливается при создании
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-    // срабатывает обновление записи
-    @PreUpdate
-    protected void onUpdate(){
-        this.modifiedAt = LocalDateTime.now();
-    }
 
 
     @ManyToOne

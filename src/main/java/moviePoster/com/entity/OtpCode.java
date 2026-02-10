@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "OtpCode")
-public class OtpCode {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "otp_code")
+public class OtpCode extends BaseEntity {
 
     @Column(name = "code")
     private int code;
@@ -46,25 +42,9 @@ public class OtpCode {
     @Column(name = "is_verified", nullable = false)
     private Boolean isVerified;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "modified_at",nullable = false)
-    private LocalDateTime modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserSession user;
 
-
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate(){
-        this.modifiedAt = LocalDateTime.now();
-    }
 }

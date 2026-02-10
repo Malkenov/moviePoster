@@ -12,34 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "FavouritesCinema")
-public class FavouritesCinema {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
-
-
-    // автоматический устанавливается при создании
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-    // срабатывает обновление записи
-    @PreUpdate
-    protected void onUpdate(){
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-
+@Table(name = "favourites_cinema")
+public class FavouritesCinema extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "cinema_id",unique = true)

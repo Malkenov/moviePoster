@@ -3,7 +3,6 @@ package moviePoster.com.service;
 import lombok.AllArgsConstructor;
 import moviePoster.com.dto.request.VenueRequestDto;
 import moviePoster.com.dto.response.VenueResponseDto;
-import moviePoster.com.entity.Venue;
 import moviePoster.com.mapper.VenueMapper;
 import moviePoster.com.repository.VenueRepository;
 import org.springframework.stereotype.Service;

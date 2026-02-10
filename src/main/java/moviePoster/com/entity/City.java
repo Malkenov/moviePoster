@@ -13,35 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "City")
-public class City {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "city")
+public class City extends BaseEntity {
 
     @Column(name = "name",nullable = false)
     private String name;
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
-
-
-    // автоматический устанавливается при создании
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
-    }
-
-    // срабатывает обновление записи
-    @PreUpdate
-    protected void onUpdate(){
-        this.modifiedAt = LocalDateTime.now();
-    }
 
 
     @OneToMany(mappedBy = "city")
