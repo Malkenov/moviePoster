@@ -13,9 +13,10 @@ import java.time.LocalDateTime;
 public class OtpService {
 
     private final OtpRepository otpRepository;
+    private final SmsService smsService;
     private final int MAX_ATTEMPTS = 5;
 
-    public OtpCode generateOtp(String email, String phone,String purpose, String channel){
+    public OtpCode generateOtpForPhone(String phone,String purpose){
 
         int code = generateRandomCode(); // генерирует случайный одноразовый код
 
@@ -25,14 +26,16 @@ public class OtpService {
                 .expiresAt(LocalDateTime.now().plusMinutes(5)) // срок действие кода - 5 минут
                 .used(false)                                   // код еще не использован
                 .isVerified(false)                             // код еще не подтвержден
-                .channel(channel)                              // канал отправки: смс, email
-                .email(email)                                  // на какой email отправить если он есть
+                .channel("SMS")                                // канал отправки: смс, email
                 .phone(phone)                                  // на какой номер отправить если он есть
                 .purpose(purpose)                              // причина: регистрация, смена пароля, авторизация
                 .attemptsAt(0)                                 // попытки ввода
                 .build();
 
-        return otpRepository.save(otp); // сохранение объекта в БД
+        otpRepository.save(otp); // сохранение объекта в БД
+        smsService.sendSms(phone,"Ваш код" + code);
+
+        return otp;
     }
 
     public int generateRandomCode(){
@@ -41,9 +44,9 @@ public class OtpService {
     }
 
 
-    public boolean verifyOtp(String email, Integer code, String purpose){
+    public boolean verifyOtp(String phone, Integer code, String purpose){
 
-        OtpCode otp = otpRepository.findTopByEmailAndPurposeOrderByCreatedAtDesc(email, purpose)
+        OtpCode otp = otpRepository.findTopByPhoneAndPurposeOrderByCreatedAtDesc(phone, purpose)
                 .orElseThrow(()-> new RuntimeException("OTP не найден"));
 
 
