@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class OtpCode extends BaseEntity {
 
     @Column(name = "code")
-    private int code;
+    private Integer code;
 
     @Column(name = "expires_at")
     private LocalDateTime expiresAt;

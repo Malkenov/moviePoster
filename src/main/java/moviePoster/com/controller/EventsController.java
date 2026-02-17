@@ -3,8 +3,6 @@ package moviePoster.com.controller;
 import lombok.RequiredArgsConstructor;
 import moviePoster.com.dto.request.EventsRequestDto;
 import moviePoster.com.dto.response.EventsResponseDto;
-import moviePoster.com.service.EventsService;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
