@@ -17,7 +17,7 @@ public class OtpController {
 
     @PostMapping("/send")
     public ResponseEntity<String> sendOtp(@RequestParam String phone){
-        otpService.generateOtpForPhone(phone, "LOGIN");
+        otpService.generateOtp(phone, "LOGIN");
         return ResponseEntity.ok("Код отправлен");
     }
 

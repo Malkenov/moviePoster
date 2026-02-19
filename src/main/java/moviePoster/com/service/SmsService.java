@@ -4,40 +4,51 @@ import com.vonage.client.VonageClient;
 import com.vonage.client.sms.MessageStatus;
 import com.vonage.client.sms.SmsSubmissionResponse;
 import com.vonage.client.sms.messages.TextMessage;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Service
 public class SmsService {
 
 
-    @Value("${nexmo.api.key}")
-    private String apiKey;
+    @Value("${messaggio.api.url}")
+    private String apiUrl; // адрес внешнего сервиса, куда отправляется запрос
 
-    @Value("${nexmo.api.secret}")
-    private String apiSecret;
+    @Value("${messaggio.api.token}")
+    private String apiToken; // ключ для доступа к сервису
 
-    @Value("${nexmo.from.number}")
-    private String fromNumber;
-
-    private VonageClient client;
-
-    @PostConstruct
-    public void init() {
-        client = VonageClient.builder()
-                .apiKey(apiKey)
-                .apiSecret(apiSecret)
-                .build();
-    }
+    @Value("${messaggio.sender}")
+    private String sender; // имя отправителя
 
 
-    public boolean sendSms(String toNumber, String message) {
-        TextMessage sms = new TextMessage(fromNumber, toNumber, message);
+    private final RestTemplate restTemplate = new RestTemplate();
+    /* это встроенный Spring класс, чтобы отправлять HTTP-запросы,
+    он позволяет общаться с внешним API (SMS-провайдером) */
 
-        try {
-            SmsSubmissionResponse response = client.getSmsClient().submitMessage(sms);
-            return response.getMessages().get(0).getStatus() == MessageStatus.OK;
+    public boolean sendSms(String phone, String message){
+        try{
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(apiToken);
+
+            Map<String, Object> body = new HashMap<>();
+            body.put("to",phone);
+            body.put("from",sender);
+            body.put("message",message);
+
+            HttpEntity<Map<String,Object>> request = new HttpEntity<>(body,headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(apiUrl,request,String.class);
+
+            return response.getStatusCode().is2xxSuccessful();
         } catch (Exception e) {
             System.out.println("Ошибка при отправке SMS: " + e.getMessage());
             return false;

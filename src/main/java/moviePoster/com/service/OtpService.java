@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -14,11 +15,12 @@ public class OtpService {
 
     private final OtpRepository otpRepository;
     private final SmsService smsService;
+    private final Random random = new Random();
     private final int MAX_ATTEMPTS = 5;
 
-    public OtpCode generateOtpForPhone(String phone,String purpose){
+    public OtpCode generateOtp(String phone,String purpose){
 
-        int code = generateRandomCode(); // генерирует случайный одноразовый код
+        int code = random.nextInt(900000) + 100000;
 
         // Создание объекта OtpCode
         OtpCode otp = OtpCode.builder()
@@ -36,11 +38,6 @@ public class OtpService {
         smsService.sendSms(phone,"Ваш код" + code);
 
         return otp;
-    }
-
-    public int generateRandomCode(){
-        SecureRandom secureRandom = new SecureRandom();
-        return 10000 + secureRandom.nextInt(9000);
     }
 
 
@@ -80,10 +77,7 @@ public class OtpService {
 
         otp.setIsVerified(true);
         otp.setUsed(true);
-
-
         otpRepository.save(otp);
-
         return true;
     }
 }
