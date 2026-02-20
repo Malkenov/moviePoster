@@ -2,6 +2,7 @@ package moviePoster.com.service;
 
 import lombok.AllArgsConstructor;
 
+import moviePoster.com.Cached.CacheService;
 import moviePoster.com.dto.request.MovieRequestDto;
 import moviePoster.com.dto.response.MovieResponseDto;
 import moviePoster.com.entity.Genre;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
@@ -30,6 +32,7 @@ public class MovieService {
     private final GenreRepository genreRepository;
     private final MovieMapper movieMapper;
     private final MoviePatchMapper moviePatchMapper;
+    private final CacheService cacheService;
 
     private final RestTemplateBuilder restTemplateBuilder;
 
@@ -44,10 +47,22 @@ public class MovieService {
     }
 
     public List<MovieResponseDto> getAll(){
-        return movieRepository.findAll()
+
+        String key = "ALL_MOVIE";
+
+        List<MovieResponseDto> cached = (List<MovieResponseDto>) cacheService.get(key);
+        if(cached != null){
+            return cached;
+        }
+
+        List<MovieResponseDto> movies = movieRepository.findAll()
                 .stream()
                 .map(movieMapper::toDto)
                 .toList();
+
+        cacheService.put(key,movies, Duration.ofMinutes(10));
+
+        return movies;
     }
 
     public MovieResponseDto getByName(String name){
