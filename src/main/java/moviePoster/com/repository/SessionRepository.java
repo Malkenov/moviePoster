@@ -1,20 +1,18 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.Movie;
-import moviePoster.com.entity.Session;
+import moviePoster.com.entity.MovieEntity;
+import moviePoster.com.entity.SessionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
 import java.util.List;
-public interface SessionRepository extends JpaRepository<Session, Long> {
+public interface SessionRepository extends JpaRepository<SessionEntity, Long> {
 
-    List<Session> findByMovieName(String name);
+    List<SessionEntity> findByMovieName(String name);
 
-    List<Session> findByCinemaByName(String name);
+    List<SessionEntity> findByCinemaByName(String name);
 
-    List<Session> findCinemaByCity(String name);
+    List<SessionEntity> findCinemaByCity(String name);
 
     boolean existsByName(String name);
 
@@ -23,7 +21,7 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
 
     @Query("""
-    SELECT s FROM Session s
+    SELECT s FROM SessionEntity s
     JOIN FETCH s.movie m
     JOIN FETCH s.cinema c
     WHERE (:city IS NULL OR c.city = :city)
@@ -32,7 +30,7 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     ORDER BY s.startTime
 """)
 
-    List<Session> findByMovieIn(List<Movie> movies);
+    List<SessionEntity> findByMovieIn(List<MovieEntity> movies);
 
 }
 

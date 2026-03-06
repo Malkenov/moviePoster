@@ -1,6 +1,6 @@
 package moviePoster.com.config;
 
-import moviePoster.com.entity.UserSession;
+import moviePoster.com.entity.UserSessionEntity;
 import moviePoster.com.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,7 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            UserSession userSession = userRepository.findByEmail(username)
+            UserSessionEntity userSession = userRepository.findByEmail(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found"));
 

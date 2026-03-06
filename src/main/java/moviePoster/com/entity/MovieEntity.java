@@ -3,7 +3,6 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "movie")
-public class Movie extends BaseEntity {
+public class MovieEntity extends BaseEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -46,12 +45,12 @@ public class Movie extends BaseEntity {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private Set<Genre> genres = new HashSet<>();
+    private Set<GenreEntity> genres = new HashSet<>();
 
     @OneToMany(mappedBy = "movies")
-    private List<Session> sessionList = new ArrayList<>();
+    private List<SessionEntity> sessionList = new ArrayList<>();
 
 
     @OneToOne(mappedBy = "movie")
-    private Review review;
+    private ReviewEntity review;
 }

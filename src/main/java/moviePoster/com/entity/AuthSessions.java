@@ -4,8 +4,6 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -27,5 +25,5 @@ public class AuthSessions extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserSession user;
+    private UserSessionEntity user;
 }

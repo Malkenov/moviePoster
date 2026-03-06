@@ -2,8 +2,8 @@ package moviePoster.com.service;
 
 import lombok.AllArgsConstructor;
 import moviePoster.com.dto.response.AfishaMovieResponse;
-import moviePoster.com.entity.Movie;
-import moviePoster.com.entity.Session;
+import moviePoster.com.entity.MovieEntity;
+import moviePoster.com.entity.SessionEntity;
 import moviePoster.com.mapper.AfishaMapper;
 import moviePoster.com.repository.MovieRepository;
 import moviePoster.com.repository.SessionRepository;
@@ -44,27 +44,27 @@ public class AfishaService {
         LocalDateTime startOfDay = date != null ? date.atStartOfDay() : null;
         LocalDateTime endOfDay   = date != null ? date.plusDays(1).atStartOfDay() : null;
 
-        Page<Movie> moviePage = movieRepository.findMoviesForAfisha(
+        Page<MovieEntity> moviePage = movieRepository.findMoviesForAfisha(
                 city,
                 startOfDay,
                 endOfDay,
                 pageable
         );
 
-        List<Movie> movies = moviePage.getContent();
+        List<MovieEntity> movies = moviePage.getContent();
         if (movies.isEmpty()) {
             return new PageImpl<>(Collections.emptyList(), pageable, 0);
         }
 
-        List<Session> sessions = sessionRepository.findByMovieIn(movies);
+        List<SessionEntity> sessions = sessionRepository.findByMovieIn(movies);
 
-        Map<Long, List<Session>> sessionsByMovieId = sessions.stream()
+        Map<Long, List<SessionEntity>> sessionsByMovieId = sessions.stream()
                 .collect(Collectors.groupingBy(s -> s.getMovies().getId()));
 
         List<AfishaMovieResponse> movieResponses = movies.stream()
                 .map(movie -> {
                     AfishaMovieResponse response = afishaMapper.toMovie(movie);
-                    List<Session> movieSessions = sessionsByMovieId.getOrDefault(movie.getId(), Collections.emptyList());
+                    List<SessionEntity> movieSessions = sessionsByMovieId.getOrDefault(movie.getId(), Collections.emptyList());
                     response.setSessions(afishaMapper.toSessionList(movieSessions));
                     return response;
                 })

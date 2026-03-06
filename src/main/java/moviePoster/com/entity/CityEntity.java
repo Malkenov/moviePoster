@@ -4,7 +4,6 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -14,15 +13,15 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "city")
-public class City extends BaseEntity {
+public class CityEntity extends BaseEntity {
 
     @Column(name = "name",nullable = false)
     private String name;
 
 
     @OneToMany(mappedBy = "city")
-    private UserSession user;
+    private UserSessionEntity user;
 
     @OneToMany(mappedBy = "city")
-    private List<Cinema> cinemas;
+    private List<CinemaEntity> cinemas;
 }

@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "hall")
-public class Hall extends BaseEntity {
+public class HallEntity extends BaseEntity {
 
     @Column(name = "name",unique = true)
     private String name;
@@ -20,5 +20,5 @@ public class Hall extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "cinema_id",unique = true)
-    private Cinema cinema;
+    private CinemaEntity cinema;
 }

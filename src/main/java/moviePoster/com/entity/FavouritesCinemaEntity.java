@@ -4,8 +4,6 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -13,13 +11,13 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "favourites_cinema")
-public class FavouritesCinema extends BaseEntity {
+public class FavouritesCinemaEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "cinema_id",unique = true)
-    private Cinema cinema;
+    private CinemaEntity cinema;
 
     @ManyToOne
     @JoinColumn(name = "user_id",unique = true)
-    private UserSession user;
+    private UserSessionEntity user;
 }

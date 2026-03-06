@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "otp_code")
-public class OtpCode extends BaseEntity {
+public class OtpCodeEntity extends BaseEntity {
 
     @Column(name = "code")
     private Integer code;
@@ -45,6 +45,6 @@ public class OtpCode extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserSession user;
+    private UserSessionEntity user;
 
 }

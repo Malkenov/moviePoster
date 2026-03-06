@@ -24,7 +24,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "userSession")
-public class UserSession extends BaseEntity implements UserDetails {
+public class UserSessionEntity extends BaseEntity implements UserDetails {
 
     @NotBlank
     @Column(name = "name",nullable = false)
@@ -59,22 +59,22 @@ public class UserSession extends BaseEntity implements UserDetails {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
-    private City city;
+    private CityEntity city;
 
     @OneToMany(mappedBy = "user")
-    private List<FavouritesCinema> favouritesCinemas;
+    private List<FavouritesCinemaEntity> favouritesCinemas;
 
     @OneToMany(mappedBy = "user")
-    private List<Ticket> tickets;
+    private List<TicketEntity> tickets;
 
     @OneToMany(mappedBy = "user")
-    private List<Review> reviews;
+    private List<ReviewEntity> reviews;
 
     @OneToMany(mappedBy = "user")
     private List<AuthSessions> authSessions;
 
     @OneToMany(mappedBy = "user")
-    private List<OtpCode> otpCode;
+    private List<OtpCodeEntity> otpCode;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

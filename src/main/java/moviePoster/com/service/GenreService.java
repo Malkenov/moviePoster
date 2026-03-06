@@ -3,7 +3,7 @@ package moviePoster.com.service;
 import lombok.AllArgsConstructor;
 import moviePoster.com.dto.request.GenreRequestDto;
 import moviePoster.com.dto.response.GenreResponseDto;
-import moviePoster.com.entity.Genre;
+import moviePoster.com.entity.GenreEntity;
 import moviePoster.com.mapper.GenreMapper;
 import moviePoster.com.repository.GenreRepository;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ public class GenreService {
     private final GenreMapper genreMapper;
 
     public GenreResponseDto create(GenreRequestDto dto){
-        Genre genre = genreMapper.toEntity(dto);
-        Genre save = genreRepository.save(genre);
+        GenreEntity genre = genreMapper.toEntity(dto);
+        GenreEntity save = genreRepository.save(genre);
         return genreMapper.toDto(save);
     }
 

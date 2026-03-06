@@ -13,13 +13,13 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "genre")
-public class Genre extends BaseEntity {
+public class GenreEntity extends BaseEntity {
 
     @Column(name = "name",unique = true,nullable = false)
     private String name;
 
 
     @ManyToMany(mappedBy = "genres")
-    private Set<Movie> movies = new HashSet<>();
+    private Set<MovieEntity> movies = new HashSet<>();
 
 }

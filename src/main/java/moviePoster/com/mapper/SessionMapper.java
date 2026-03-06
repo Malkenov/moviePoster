@@ -2,7 +2,7 @@ package moviePoster.com.mapper;
 
 import moviePoster.com.dto.request.SessionRequestDto;
 import moviePoster.com.dto.response.SessionResponseDto;
-import moviePoster.com.entity.Session;
+import moviePoster.com.entity.SessionEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,7 +12,7 @@ public interface SessionMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "cinemas", ignore = true)
     @Mapping(target = "movies", ignore = true)
-    Session toEntity(SessionRequestDto dto);
+    SessionEntity toEntity(SessionRequestDto dto);
 
-    SessionResponseDto toDto(Session session);
+    SessionResponseDto toDto(SessionEntity session);
 }

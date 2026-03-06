@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "session")
-public class Session extends BaseEntity {
+public class SessionEntity extends BaseEntity {
 
     @Column(name = "start_time",nullable = false)
     private Integer startTime;
@@ -19,13 +19,13 @@ public class Session extends BaseEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cinema_id")
-    private Cinema cinemas;
+    private CinemaEntity cinemas;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "movie_id")
-    private Movie movies;
+    private MovieEntity movies;
 
     @OneToOne(mappedBy = "session")
-    private Ticket ticket;
+    private TicketEntity ticket;
 
 }

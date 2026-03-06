@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "review")
-public class Review extends BaseEntity {
+public class ReviewEntity extends BaseEntity {
 
     @Column(name = "grade",nullable = false)
     private int grade;
@@ -23,9 +23,9 @@ public class Review extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserSession user;
+    private UserSessionEntity user;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "movie_id")
-    private Movie movie;
+    private MovieEntity movie;
 }

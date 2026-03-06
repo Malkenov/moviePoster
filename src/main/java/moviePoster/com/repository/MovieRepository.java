@@ -1,6 +1,6 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.Movie;
+import moviePoster.com.entity.MovieEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,16 +10,16 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public interface MovieRepository extends JpaRepository<Movie, Long> {
+public interface MovieRepository extends JpaRepository<MovieEntity, Long> {
 
-    Optional<Movie> findByName(String name);
+    Optional<MovieEntity> findByName(String name);
 
     boolean existsByName(String name);
 
     void deleteByName(String name);
 
     @Query("""
-    SELECT DISTINCT m FROM Movie m
+    SELECT DISTINCT m FROM MovieEntity m
     JOIN m.sessions s
     JOIN s.cinema c
     LEFT JOIN FETCH m.genres g
@@ -27,7 +27,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
       AND (:startOfDay IS NULL OR s.startTime >= :startOfDay)
       AND (:endOfDay IS NULL OR s.startTime < :endOfDay)
 """)
-    Page<Movie> findMoviesForAfisha(
+    Page<MovieEntity> findMoviesForAfisha(
             @Param("city") String city,
             @Param("startOfDay") LocalDateTime startOfDay,
             @Param("endOfDay") LocalDateTime endOfDay,

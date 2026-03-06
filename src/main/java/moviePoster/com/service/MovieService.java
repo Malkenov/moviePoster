@@ -3,14 +3,16 @@ package moviePoster.com.service;
 import lombok.AllArgsConstructor;
 
 import moviePoster.com.Cached.CacheService;
+import moviePoster.com.document.MovieDocument;
 import moviePoster.com.dto.request.MovieRequestDto;
 import moviePoster.com.dto.response.MovieResponseDto;
-import moviePoster.com.entity.Genre;
-import moviePoster.com.entity.Movie;
+import moviePoster.com.entity.GenreEntity;
+import moviePoster.com.entity.MovieEntity;
 import moviePoster.com.mapper.MovieMapper;
 import moviePoster.com.mapper.MoviePatchMapper;
 import moviePoster.com.repository.GenreRepository;
 import moviePoster.com.repository.MovieRepository;
+import moviePoster.com.repository.MovieSearchRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,17 +35,36 @@ public class MovieService {
     private final MovieMapper movieMapper;
     private final MoviePatchMapper moviePatchMapper;
     private final CacheService cacheService;
+    private final MovieSearchRepository movieSearchRepository;
+    private final MovieDocument document;
 
     private final RestTemplateBuilder restTemplateBuilder;
 
     public MovieResponseDto create(MovieRequestDto dto){
 
-        Set<Genre> genreSet = new HashSet<>(genreRepository.findAllById(dto.getGenreId()));
-        Movie movie = movieMapper.toEntity(dto);
+        Set<GenreEntity> genreSet = new HashSet<>(genreRepository.findAllById(dto.getGenreId()));
+        MovieEntity movie = movieMapper.toEntity(dto);
         movie.setGenres(genreSet);
 
-        Movie saved = movieRepository.save(movie);
+        MovieEntity saved = movieRepository.save(movie);
+
+        MovieDocument document = MovieDocument.builder()
+                .id(saved.getId())
+                .name(saved.getName())
+                .title(saved.getTitle())
+                .build();
+
+        movieSearchRepository.save(document);
+
+
         return movieMapper.toDto(saved);
+    }
+
+    public Page<MovieDocument> searchMovies(String text, int page, int size){
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return movieSearchRepository.searchByQuery(text, pageable);
     }
 
     public List<MovieResponseDto> getAll(){
@@ -66,7 +87,7 @@ public class MovieService {
     }
 
     public MovieResponseDto getByName(String name){
-        Movie movie = movieRepository.findByName(name)
+        MovieEntity movie = movieRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден!"));
         return movieMapper.toDto(movie);
     }
@@ -78,7 +99,7 @@ public class MovieService {
     }
 
     public MovieResponseDto updateMovie(String name,MovieRequestDto dto){
-        Movie movie = movieRepository.findByName(name)
+        MovieEntity movie = movieRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден!"));
         movieMapper.toEntity(dto);
         moviePatchMapper.updateMovieFromDto(dto,movie);

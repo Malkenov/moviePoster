@@ -13,7 +13,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "price")
-public class Price extends BaseEntity {
+public class PriceEntity extends BaseEntity {
 
     @Column(name = "amount",nullable = false)
     @PositiveOrZero
@@ -25,5 +25,5 @@ public class Price extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
-    private Ticket ticket;
+    private TicketEntity ticket;
 }

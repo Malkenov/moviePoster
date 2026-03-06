@@ -1,11 +1,10 @@
 package moviePoster.com.service;
 
 import lombok.RequiredArgsConstructor;
-import moviePoster.com.entity.OtpCode;
+import moviePoster.com.entity.OtpCodeEntity;
 import moviePoster.com.repository.OtpRepository;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -18,12 +17,12 @@ public class OtpService {
     private final Random random = new Random();
     private final int MAX_ATTEMPTS = 5;
 
-    public OtpCode generateOtp(String phone,String purpose){
+    public OtpCodeEntity generateOtp(String phone, String purpose){
 
         int code = random.nextInt(900000) + 100000;
 
         // Создание объекта OtpCode
-        OtpCode otp = OtpCode.builder()
+        OtpCodeEntity otp = OtpCodeEntity.builder()
                 .code(code)                                    // сам код
                 .expiresAt(LocalDateTime.now().plusMinutes(5)) // срок действие кода - 5 минут
                 .used(false)                                   // код еще не использован
@@ -43,7 +42,7 @@ public class OtpService {
 
     public boolean verifyOtp(String phone, Integer code, String purpose){
 
-        OtpCode otp = otpRepository.findTopByPhoneAndPurposeOrderByCreatedAtDesc(phone, purpose)
+        OtpCodeEntity otp = otpRepository.findTopByPhoneAndPurposeOrderByCreatedAtDesc(phone, purpose)
                 .orElseThrow(()-> new RuntimeException("OTP не найден"));
 
 

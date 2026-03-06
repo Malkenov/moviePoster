@@ -8,7 +8,7 @@ import moviePoster.com.dto.request.RegistrationRequestDto;
 import moviePoster.com.dto.request.AuthenticationRequestDto;
 import moviePoster.com.dto.response.AuthenticationResponseDto;
 import moviePoster.com.entity.Token.TokenEntity;
-import moviePoster.com.entity.UserSession;
+import moviePoster.com.entity.UserSessionEntity;
 import moviePoster.com.enums.Role;
 import moviePoster.com.config.JwtService;
 import moviePoster.com.enums.TokenType;
@@ -34,7 +34,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponseDto register(RegistrationRequestDto dto) {
-        var user = UserSession.builder()
+        var user = UserSessionEntity.builder()
                 .name(dto.getName())
                 .dateOfBirthday(dto.getDateOfBirthday())
                 .email(dto.getEmail())
@@ -113,7 +113,7 @@ public class AuthenticationService {
     //-------------------------------------------------------------------------------
 
 
-    private void saveUserToken(UserSession users, String jwtToken) {
+    private void saveUserToken(UserSessionEntity users, String jwtToken) {
         var tokenEntity = TokenEntity.builder()
                 .users(users)
                 .token(jwtToken)
@@ -129,7 +129,7 @@ public class AuthenticationService {
     //-------------------------------------------------------------------------------
 
 
-    private void revokeAllUserTokens(UserSession users) {
+    private void revokeAllUserTokens(UserSessionEntity users) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(users.getId());
 
         if (validUserTokens.isEmpty()) {
@@ -158,7 +158,7 @@ public class AuthenticationService {
             throw new RuntimeException("Refresh token is expired or revoked");
         }
 
-        UserSession users = tokenEntity.getUsers();
+        UserSessionEntity users = tokenEntity.getUsers();
 
         String newAccessToken = jwtService.generateRefreshToken(users);
 

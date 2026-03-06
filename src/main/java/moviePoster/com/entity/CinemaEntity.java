@@ -4,7 +4,6 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "cinema")
-public class Cinema extends BaseEntity {
+public class CinemaEntity extends BaseEntity {
 
     @Column(name = "name",nullable = false)
     private String name;
@@ -26,14 +25,14 @@ public class Cinema extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private City city;
+    private CityEntity city;
 
     @OneToMany(mappedBy = "cinemas")
-    private List<Session> sessionList = new ArrayList<>();
+    private List<SessionEntity> sessionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "cinema")
-    private List<FavouritesCinema> favouritesCinemas;
+    private List<FavouritesCinemaEntity> favouritesCinemas;
 
     @OneToMany(mappedBy = "cinema")
-    private List<Hall> hall;
+    private List<HallEntity> hall;
 }

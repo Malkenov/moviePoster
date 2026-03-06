@@ -12,14 +12,14 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "role")
-public class Role extends BaseEntity {
+public class RoleEntity extends BaseEntity {
 
     @Column(name = "name",nullable = false)
     private String name;
 
 
     @OneToMany(mappedBy = "role")
-    private UserSession user;
+    private UserSessionEntity user;
 
     @ManyToMany
     @JoinTable(
@@ -27,5 +27,5 @@ public class Role extends BaseEntity {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
-    private List<Permission> permission;
+    private List<PermissionEntity> permission;
 }

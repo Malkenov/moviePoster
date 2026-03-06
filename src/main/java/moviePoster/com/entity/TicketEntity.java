@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "ticket")
-public class Ticket extends BaseEntity {
+public class TicketEntity extends BaseEntity {
 
     @Column(name = "row",unique = true,nullable = false)
     @Positive
@@ -27,12 +27,12 @@ public class Ticket extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserSession user;
+    private UserSessionEntity user;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "session_id",unique = true)
-    private Session session;
+    private SessionEntity session;
 
     @OneToMany(mappedBy = "ticket")
-    private List<Price> price;
+    private List<PriceEntity> price;
 }

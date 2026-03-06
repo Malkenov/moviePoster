@@ -1,7 +1,7 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.City;
+import moviePoster.com.entity.CityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CityRepository extends JpaRepository<Long, City> {
+public interface CityRepository extends JpaRepository<Long, CityEntity> {
 }

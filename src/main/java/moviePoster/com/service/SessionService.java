@@ -2,11 +2,10 @@ package moviePoster.com.service;
 
 import lombok.AllArgsConstructor;
 import moviePoster.com.dto.request.SessionRequestDto;
-import moviePoster.com.dto.response.CinemaResponseDto;
 import moviePoster.com.dto.response.SessionResponseDto;
-import moviePoster.com.entity.Cinema;
-import moviePoster.com.entity.Movie;
-import moviePoster.com.entity.Session;
+import moviePoster.com.entity.CinemaEntity;
+import moviePoster.com.entity.MovieEntity;
+import moviePoster.com.entity.SessionEntity;
 import moviePoster.com.mapper.SessionMapper;
 import moviePoster.com.repository.CinemaRepository;
 import moviePoster.com.repository.MovieRepository;
@@ -32,17 +31,17 @@ public class SessionService {
 
     public SessionResponseDto create(SessionRequestDto dto){
 
-        Movie movie = movieRepository.findByName(dto.getMovie())
+        MovieEntity movie = movieRepository.findByName(dto.getMovie())
                 .orElseThrow(() -> new RuntimeException("Фильм не найден!"));
 
-        Cinema cinema = cinemaRepository.findByName(dto.getCinema())
+        CinemaEntity cinema = cinemaRepository.findByName(dto.getCinema())
                 .orElseThrow(() -> new RuntimeException("Кинотеатр не найден!"));
 
-        Session session = sessionMapper.toEntity(dto);
+        SessionEntity session = sessionMapper.toEntity(dto);
         session.setMovies(movie);
         session.setCinemas(cinema);
 
-        Session save = sessionRepository.save(session);
+        SessionEntity save = sessionRepository.save(session);
         return sessionMapper.toDto(save);
     }
 

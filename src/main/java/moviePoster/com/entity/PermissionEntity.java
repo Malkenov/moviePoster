@@ -12,12 +12,12 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "permission")
-public class Permission extends BaseEntity {
+public class PermissionEntity extends BaseEntity {
 
     @Column(name = "name",nullable = false)
     private String name;
 
 
     @ManyToMany(mappedBy = "permission")
-    private List<Role> role;
+    private List<RoleEntity> role;
 }

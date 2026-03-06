@@ -1,11 +1,11 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.UserSession;
+import moviePoster.com.entity.UserSessionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<UserSession,Long> {
+public interface UserRepository extends JpaRepository<UserSessionEntity,Long> {
 
-    Optional<UserSession> findByEmail(String email);
+    Optional<UserSessionEntity> findByEmail(String email);
 }
