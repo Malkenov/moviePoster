@@ -4,7 +4,9 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+import moviePoster.com.enums.SeatStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -13,23 +15,27 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "ticket")
+@Table(name = "ticket", uniqueConstraints = @UniqueConstraint(columnNames = {"session_id", "row", "place"})) //для избежании покупки одинаковых мест
 public class TicketEntity extends BaseEntity {
 
-    @Column(name = "row",unique = true,nullable = false)
+    @Column(name = "row",nullable = false)
     @Positive
-    private int row;
+    private int row;   // ряд
 
-    @Column(name = "place",unique = true,nullable = false)
+    @Column(name = "place",nullable = false)
     @Positive
-    private int place;
+    private int place; // место
 
+    @Enumerated(EnumType.STRING)
+    private SeatStatus status;
+
+    private LocalDateTime reservedUntil; // забронировано до ~ 10 минут
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserSessionEntity user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "session_id",unique = true)
     private SessionEntity session;
 

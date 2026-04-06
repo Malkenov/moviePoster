@@ -2,7 +2,7 @@ package moviePoster.com.service;
 
 import lombok.AllArgsConstructor;
 
-import moviePoster.com.Cached.CacheService;
+import moviePoster.com.cached.CacheService;
 import moviePoster.com.document.MovieDocument;
 import moviePoster.com.dto.request.MovieRequestDto;
 import moviePoster.com.dto.response.MovieResponseDto;

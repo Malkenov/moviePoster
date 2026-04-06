@@ -1,4 +1,4 @@
-package moviePoster.com.Cached;
+package moviePoster.com.cached;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -3,6 +3,8 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 
 @Setter
 @Getter
@@ -25,7 +27,7 @@ public class SessionEntity extends BaseEntity {
     @JoinColumn(name = "movie_id")
     private MovieEntity movies;
 
-    @OneToOne(mappedBy = "session")
-    private TicketEntity ticket;
+    @OneToMany(mappedBy = "session")
+    private List<TicketEntity> ticket;
 
 }
