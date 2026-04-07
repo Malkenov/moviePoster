@@ -18,6 +18,7 @@ public class MovieDocument {
     private Long id;
 
     @Field(type = FieldType.Text, analyzer = "russian_analyzer")
+    // говорит для elasticsearch как искать по этому полю,в даном случае(по словам)
     private String name;
 
     @Field(type = FieldType.Text, analyzer = "russian_analyzer")
