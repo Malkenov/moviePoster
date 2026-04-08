@@ -30,4 +30,7 @@ public class SessionEntity extends BaseEntity {
     @OneToMany(mappedBy = "session")
     private List<TicketEntity> ticket;
 
+    @OneToMany(mappedBy = "session")
+    private List<SeatEntity> seat;
+
 }

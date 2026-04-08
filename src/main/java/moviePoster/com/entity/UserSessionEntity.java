@@ -83,6 +83,9 @@ public class UserSessionEntity extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "users")
     private List<TokenEntity> tokenEntities;
 
+    @OneToMany(mappedBy = "user")
+    private List<SeatEntity> seatEntity;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

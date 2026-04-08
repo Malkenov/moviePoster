@@ -26,11 +26,6 @@ public class TicketEntity extends BaseEntity {
     @Positive
     private int place; // место
 
-    @Enumerated(EnumType.STRING)
-    private SeatStatus status;
-
-    private LocalDateTime reservedUntil; // забронировано до ~ 10 минут
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserSessionEntity user;
