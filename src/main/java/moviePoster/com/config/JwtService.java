@@ -1,7 +1,7 @@
 package moviePoster.com.config;
 
 import io.jsonwebtoken.SignatureAlgorithm;
-import moviePoster.com.config.proporties.JwtSecurityConfigProperties;
+import moviePoster.com.config.properties.JwtSecurityConfigProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

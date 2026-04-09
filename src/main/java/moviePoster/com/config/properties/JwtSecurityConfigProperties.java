@@ -1,4 +1,4 @@
-package moviePoster.com.config.proporties;
+package moviePoster.com.config.properties;
 
 
 import lombok.Getter;

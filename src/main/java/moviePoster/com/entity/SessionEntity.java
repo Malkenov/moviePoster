@@ -19,7 +19,6 @@ public class SessionEntity extends BaseEntity {
     @Column(name = "start_time",nullable = false)
     private LocalDateTime startTime;
 
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "cinema_id")
     private CinemaEntity cinemas;

@@ -53,14 +53,14 @@ public class SessionService {
     }
 
     public List<SessionResponseDto> getByMovieName(String name){
-        return sessionRepository.findByMovieName(name)
+        return sessionRepository.findByMovies_Name(name)
                 .stream()
                 .map(sessionMapper::toDto)
                 .toList();
     }
 
     public List<SessionResponseDto> getCinemaByName(String name){
-        return sessionRepository.findByCinemaByName(name)
+        return sessionRepository.findByCinemasBy_Name(name)
                 .stream()
                 .map(sessionMapper::toDto)
                 .toList();
@@ -72,10 +72,14 @@ public class SessionService {
                 .map(sessionMapper::toDto);
     }
 
-    public void delete(String name){
-        if(!sessionRepository.existsByName(name)){
+    public void delete(String name) {
+        if (!sessionRepository.existsByMovies_Name(name)) { // ← было existsByName
             throw new RuntimeException("Сессия не найдена");
         }
-        sessionRepository.delete(name);
+        SessionEntity session = sessionRepository.findByMovies_Name(name)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Сессия не найдена"));
+        sessionRepository.delete(session);
     }
 }

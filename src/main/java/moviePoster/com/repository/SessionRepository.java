@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 public interface SessionRepository extends JpaRepository<SessionEntity, Long> {
 
-    List<SessionEntity> findByMovieName(String name);
+    List<SessionEntity> findByMovies_Name(String name);
 
-    List<SessionEntity> findByCinemaByName(String name);
+    List<SessionEntity> findByCinemasBy_Name(String name);
 
-    List<SessionEntity> findCinemaByCity(String name);
+    List<SessionEntity> findCinemaBy_City(String name);
 
-    boolean existsByName(String name);
+    boolean existsByMovies_Name(String name);
 
     void delete(String name);
 
