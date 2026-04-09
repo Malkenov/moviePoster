@@ -5,6 +5,7 @@ import moviePoster.com.entity.SessionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 public interface SessionRepository extends JpaRepository<SessionEntity, Long> {
 
@@ -17,6 +18,8 @@ public interface SessionRepository extends JpaRepository<SessionEntity, Long> {
     boolean existsByName(String name);
 
     void delete(String name);
+
+    List<SessionEntity> findByStartTimeBetween(LocalDateTime from, LocalDateTime to);
 
 
 

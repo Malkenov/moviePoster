@@ -3,6 +3,7 @@ package moviePoster.com.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class SessionEntity extends BaseEntity {
 
     @Column(name = "start_time",nullable = false)
-    private Integer startTime;
+    private LocalDateTime startTime;
 
 
     @ManyToOne(optional = false)
