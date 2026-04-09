@@ -1,10 +1,9 @@
 package moviePoster.com.scheduler;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import moviePoster.com.dto.kafka.dto.SeatReservationExpiredDto;
-import moviePoster.com.dto.request.TicketRequestDto;
 import moviePoster.com.entity.SeatEntity;
-import moviePoster.com.entity.TicketEntity;
 import moviePoster.com.enums.SeatStatus;
 import moviePoster.com.repository.SeatRepository;
 import moviePoster.com.service.producer.SeatExpiredProducer;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SeatExpiredScheduler {
@@ -34,6 +34,7 @@ public class SeatExpiredScheduler {
 
             expiredProducer.send(dto);
 
+            log.info("Найдена истекшая бронь: {}", seat.getId());
         }
     }
 }

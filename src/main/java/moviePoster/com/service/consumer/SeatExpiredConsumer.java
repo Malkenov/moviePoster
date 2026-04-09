@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SeatExpiredConsumer {
 
-    public final SeatRepository seatRepository;
+    private final SeatRepository seatRepository;
 
     @Transactional
     @KafkaListener(topics = "seat-reservation-expired",groupId = "seat-notifications")

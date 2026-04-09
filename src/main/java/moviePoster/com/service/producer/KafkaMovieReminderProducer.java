@@ -4,7 +4,6 @@ package moviePoster.com.service.producer;
 import lombok.extern.slf4j.Slf4j;
 import moviePoster.com.dto.kafka.dto.MovieReminderDto;
 import lombok.RequiredArgsConstructor;
-import moviePoster.com.dto.request.SessionRequestDto;
 import moviePoster.com.entity.SessionEntity;
 import moviePoster.com.entity.TicketEntity;
 import moviePoster.com.repository.SessionRepository;
