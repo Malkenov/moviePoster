@@ -1,10 +1,11 @@
 package moviePoster.com.scheduler;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import moviePoster.com.dto.kafka.dto.SeatReservationExpiredDto;
-import moviePoster.com.entity.SeatEntity;
-import moviePoster.com.enums.SeatStatus;
+import moviePoster.com.domain.entity.SeatEntity;
+import moviePoster.com.dto.enums.SeatStatus;
 import moviePoster.com.repository.SeatRepository;
 import moviePoster.com.service.producer.SeatExpiredProducer;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,10 +23,19 @@ public class SeatExpiredScheduler {
     private final SeatExpiredProducer expiredProducer;
 
     @Scheduled(fixedRate = 60000)
-    public void checkExpiredReserved(){
-        List<SeatEntity> expiredTicked = seatRepository.findByStatusAndReservedUntilBefore(SeatStatus.RESERVED, LocalDateTime.now());
+    @Transactional
+    public void checkExpiredReserved() {
+        List<SeatEntity> expiredSeats = seatRepository
+                .findByStatusAndReservedUntilBefore(SeatStatus.RESERVED, LocalDateTime.now());
 
-        for(SeatEntity seat: expiredTicked){
+        for (SeatEntity seat : expiredSeats) {
+            if (seat.getUser() == null) {
+                log.warn("У места {} нет пользователя", seat.getId());
+                continue;
+            }
+            seat.setStatus(SeatStatus.EXPIRING);
+            seatRepository.save(seat);
+
             SeatReservationExpiredDto dto = new SeatReservationExpiredDto();
             dto.setSeatId(seat.getId());
             dto.setSessionId(seat.getSessionEntity().getId());
@@ -33,8 +43,7 @@ public class SeatExpiredScheduler {
             dto.setExpiredAt(LocalDateTime.now());
 
             expiredProducer.send(dto);
-
-            log.info("Найдена истекшая бронь: {}", seat.getId());
+            log.info("Место переведено в EXPIRING: {}", seat.getId());
         }
     }
 }

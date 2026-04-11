@@ -1,7 +1,7 @@
 package moviePoster.com.mapper;
 
 import moviePoster.com.dto.request.MovieRequestDto;
-import moviePoster.com.entity.MovieEntity;
+import moviePoster.com.domain.entity.MovieEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

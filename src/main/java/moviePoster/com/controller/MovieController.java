@@ -3,7 +3,7 @@ package moviePoster.com.controller;
 import lombok.RequiredArgsConstructor;
 import moviePoster.com.dto.request.MovieRequestDto;
 import moviePoster.com.dto.response.MovieResponseDto;
-import moviePoster.com.document.MovieDocument;
+import moviePoster.com.domain.document.MovieDocument;
 import moviePoster.com.service.MovieService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

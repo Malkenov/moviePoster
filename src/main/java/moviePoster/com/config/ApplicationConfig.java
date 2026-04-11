@@ -1,6 +1,6 @@
 package moviePoster.com.config;
 
-import moviePoster.com.entity.UserSessionEntity;
+import moviePoster.com.domain.entity.UserSessionEntity;
 import moviePoster.com.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

@@ -3,7 +3,7 @@ package moviePoster.com.mapper;
 
 import moviePoster.com.dto.request.UserRequestDto;
 import moviePoster.com.dto.response.UserResponseDto;
-import moviePoster.com.entity.UserSessionEntity;
+import moviePoster.com.domain.entity.UserSessionEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

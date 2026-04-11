@@ -2,8 +2,8 @@ package moviePoster.com.mapper;
 
 import moviePoster.com.dto.response.AfishaMovieResponse;
 import moviePoster.com.dto.response.SessionShortResponse;
-import moviePoster.com.entity.MovieEntity;
-import moviePoster.com.entity.SessionEntity;
+import moviePoster.com.domain.entity.MovieEntity;
+import moviePoster.com.domain.entity.SessionEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import java.util.List;

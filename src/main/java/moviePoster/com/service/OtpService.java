@@ -1,7 +1,7 @@
 package moviePoster.com.service;
 
 import lombok.RequiredArgsConstructor;
-import moviePoster.com.entity.OtpCodeEntity;
+import moviePoster.com.domain.entity.OtpCodeEntity;
 import moviePoster.com.repository.OtpRepository;
 import org.springframework.stereotype.Service;
 

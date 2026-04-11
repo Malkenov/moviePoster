@@ -3,7 +3,7 @@ package moviePoster.com.mapper;
 
 import moviePoster.com.dto.request.GenreRequestDto;
 import moviePoster.com.dto.response.GenreResponseDto;
-import moviePoster.com.entity.GenreEntity;
+import moviePoster.com.domain.entity.GenreEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

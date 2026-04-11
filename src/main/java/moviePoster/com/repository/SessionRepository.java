@@ -1,7 +1,7 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.MovieEntity;
-import moviePoster.com.entity.SessionEntity;
+import moviePoster.com.domain.entity.MovieEntity;
+import moviePoster.com.domain.entity.SessionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

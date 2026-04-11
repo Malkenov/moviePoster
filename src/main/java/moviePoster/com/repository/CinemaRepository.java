@@ -1,6 +1,6 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.CinemaEntity;
+import moviePoster.com.domain.entity.CinemaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

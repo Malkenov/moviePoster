@@ -1,0 +1,24 @@
+package moviePoster.com.domain.entity;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "hall")
+public class HallEntity extends BaseEntity {
+
+    @Column(name = "name",unique = true)
+    private String name;
+
+
+    @ManyToOne
+    @JoinColumn(name = "cinema_id",unique = true)
+    private CinemaEntity cinema;
+}

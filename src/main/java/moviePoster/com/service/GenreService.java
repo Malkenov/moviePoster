@@ -3,7 +3,7 @@ package moviePoster.com.service;
 import lombok.AllArgsConstructor;
 import moviePoster.com.dto.request.GenreRequestDto;
 import moviePoster.com.dto.response.GenreResponseDto;
-import moviePoster.com.entity.GenreEntity;
+import moviePoster.com.domain.entity.GenreEntity;
 import moviePoster.com.mapper.GenreMapper;
 import moviePoster.com.repository.GenreRepository;
 import org.springframework.stereotype.Service;

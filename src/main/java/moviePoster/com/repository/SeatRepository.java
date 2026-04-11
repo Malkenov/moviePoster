@@ -1,8 +1,7 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.SeatEntity;
-import moviePoster.com.entity.TicketEntity;
-import moviePoster.com.enums.SeatStatus;
+import moviePoster.com.domain.entity.SeatEntity;
+import moviePoster.com.dto.enums.SeatStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

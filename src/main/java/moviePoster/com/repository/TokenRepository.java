@@ -1,6 +1,6 @@
 package moviePoster.com.repository;
 
-import moviePoster.com.entity.Token.TokenEntity;
+import moviePoster.com.domain.entity.Token.TokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

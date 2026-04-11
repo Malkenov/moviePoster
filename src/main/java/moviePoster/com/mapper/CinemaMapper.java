@@ -2,7 +2,7 @@ package moviePoster.com.mapper;
 
 import moviePoster.com.dto.request.CinemaRequestDto;
 import moviePoster.com.dto.response.CinemaResponseDto;
-import moviePoster.com.entity.CinemaEntity;
+import moviePoster.com.domain.entity.CinemaEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
