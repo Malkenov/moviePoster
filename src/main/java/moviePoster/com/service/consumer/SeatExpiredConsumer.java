@@ -23,6 +23,12 @@ public class SeatExpiredConsumer {
         log.info("Освобождаем место: {}", dto );
 
         SeatEntity seat = seatRepository.findById(dto.getSeatId()).orElseThrow();
+
+        if (seat.getStatus() != SeatStatus.EXPIRING) {
+            log.warn("Место {} уже обработано, статус: {}", seat.getId(), seat.getStatus());
+            return;
+        }
+
         seat.setStatus(SeatStatus.AVAILABLE);
         seat.setReservedUntil(null);
         seat.setUser(null);
