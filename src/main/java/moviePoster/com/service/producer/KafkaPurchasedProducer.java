@@ -2,6 +2,7 @@ package moviePoster.com.service.producer;
 
 
 
+import moviePoster.com.config.KafkaTopicsConfig;
 import moviePoster.com.dto.kafka.dto.KafkaPurchasedDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -15,7 +16,7 @@ public class KafkaPurchasedProducer {
     // KafkaTemplate - инструмент от Spring для отправки сообщений в Kafka
 
     public void send(KafkaPurchasedDto dto){
-        kafkaTemplate.send("ticket-purchased", dto);
+        kafkaTemplate.send(KafkaTopicsConfig.TICKET_PURCHASED, dto);
         System.out.println("Отправлено: " + dto);
     }
 }

@@ -3,6 +3,7 @@ package moviePoster.com.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,8 +21,8 @@ public class MovieEntity extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "title",nullable = false)
-    private String title;
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     @Column(name = "isPremiere")
     private Boolean isPremiere;
@@ -38,6 +39,9 @@ public class MovieEntity extends BaseEntity {
     @Column(name = "language",nullable = false)
     private String language;
 
+    @Column(name = "release_date")
+    private LocalDate releaseDate;
+
 
     @ManyToMany
     @JoinTable(
@@ -51,6 +55,6 @@ public class MovieEntity extends BaseEntity {
     private List<SessionEntity> sessionList = new ArrayList<>();
 
 
-    @OneToOne(mappedBy = "movie")
-    private ReviewEntity review;
+    @OneToMany(mappedBy = "movies")
+    private List<ReviewEntity> reviews = new ArrayList<>();
 }

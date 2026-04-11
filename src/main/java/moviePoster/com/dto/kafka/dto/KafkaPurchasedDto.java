@@ -13,6 +13,6 @@ public class KafkaPurchasedDto {
     private String userEmail;
     private String userName;
     private String movieName;
-    private String ticketId;
+    private Long ticketId;
 }
 

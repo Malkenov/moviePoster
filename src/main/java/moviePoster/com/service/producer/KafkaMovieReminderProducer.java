@@ -2,6 +2,7 @@ package moviePoster.com.service.producer;
 
 
 import lombok.extern.slf4j.Slf4j;
+import moviePoster.com.config.KafkaTopicsConfig;
 import moviePoster.com.dto.kafka.dto.MovieReminderDto;
 import lombok.RequiredArgsConstructor;
 import moviePoster.com.domain.entity.SessionEntity;
@@ -48,7 +49,7 @@ public class KafkaMovieReminderProducer {
                 dto.setSeatNumber(String.valueOf(ticket.getPlace()));
                 dto.setCinemaName(session.getCinemas().getName());
 
-                kafkaTemplate.send("movie-reminder", dto);
+                kafkaTemplate.send(KafkaTopicsConfig.MOVIE_REMINDER, dto);
                 log.info("Напоминание отправлено {}", ticket.getUser().getEmail());
             }
         }

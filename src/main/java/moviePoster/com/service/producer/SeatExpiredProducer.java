@@ -1,5 +1,6 @@
 package moviePoster.com.service.producer;
 
+import moviePoster.com.config.KafkaTopicsConfig;
 import moviePoster.com.dto.kafka.dto.SeatReservationExpiredDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,7 +13,7 @@ public class SeatExpiredProducer {
     private final KafkaTemplate<String, SeatReservationExpiredDto> kafkaTemplate;
 
     public void send(SeatReservationExpiredDto dto){
-        kafkaTemplate.send("seat-reservation-expired",dto);
+        kafkaTemplate.send(KafkaTopicsConfig.SEAT_RESERVATION_EXPIRED,dto);
         System.out.println("Бронь истекла: " + dto);
     }
 }

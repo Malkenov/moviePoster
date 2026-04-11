@@ -25,7 +25,7 @@ public class ReviewEntity extends BaseEntity {
     @JoinColumn(name = "user_id")
     private UserSessionEntity user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "movie_id")
-    private MovieEntity movie;
+    private MovieEntity movies;
 }
