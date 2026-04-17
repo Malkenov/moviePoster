@@ -3,6 +3,7 @@ package moviePoster.com.service.consumer;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import moviePoster.com.config.KafkaTopicsConfig;
 import moviePoster.com.dto.kafka.dto.SeatReservationExpiredDto;
 import moviePoster.com.domain.entity.SeatEntity;
 import moviePoster.com.dto.enums.SeatStatus;
@@ -18,7 +19,7 @@ public class SeatExpiredConsumer {
     private final SeatRepository seatRepository;
 
     @Transactional
-    @KafkaListener(topics = "seat-reservation-expired",groupId = "seat-notifications")
+    @KafkaListener(topics = KafkaTopicsConfig.SEAT_RESERVATION_EXPIRED,groupId = "seat-notifications")
     public void listen(SeatReservationExpiredDto dto){
         log.info("Освобождаем место: {}", dto );
 
