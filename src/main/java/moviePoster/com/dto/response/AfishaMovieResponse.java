@@ -7,9 +7,13 @@ import lombok.Setter;
 import java.util.Set;
 import java.util.List;
 
+import lombok.*;
+
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AfishaMovieResponse {
 
     private String title;

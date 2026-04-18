@@ -4,6 +4,7 @@ package moviePoster.com.domain.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "ticket", uniqueConstraints = @UniqueConstraint(columnNames = {"session_id", "row", "place"})) //для избежании покупки одинаковых мест
 public class TicketEntity extends BaseEntity {

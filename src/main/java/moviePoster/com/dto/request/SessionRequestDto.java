@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,6 +15,6 @@ public class SessionRequestDto{
 
     private String movie;
     private String cinema;
-    private Integer startTime;
+    private LocalDateTime startTime;
     private BigDecimal price;
 }

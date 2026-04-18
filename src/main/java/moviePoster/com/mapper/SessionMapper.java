@@ -10,8 +10,12 @@ import org.mapstruct.Mapping;
 public interface SessionMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "modifiedAt", ignore = true)
     @Mapping(target = "cinemas", ignore = true)
     @Mapping(target = "movies", ignore = true)
+    @Mapping(target = "ticket", ignore = true)
+    @Mapping(target = "seat", ignore = true)
     SessionEntity toEntity(SessionRequestDto dto);
 
     SessionResponseDto toDto(SessionEntity session);

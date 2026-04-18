@@ -10,8 +10,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface GenreMapper {
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "modifiedAt", ignore = true)
     @Mapping(target = "movies", ignore = true)
-    @Mapping(target = "performanceList", ignore = true)
     GenreEntity toEntity(GenreRequestDto dto);
 
     GenreResponseDto toDto(GenreEntity genre);

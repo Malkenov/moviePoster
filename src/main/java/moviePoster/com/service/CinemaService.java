@@ -6,6 +6,7 @@ import moviePoster.com.dto.response.CinemaResponseDto;
 import moviePoster.com.domain.entity.CinemaEntity;
 import moviePoster.com.mapper.CinemaMapper;
 import moviePoster.com.repository.CinemaRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,9 +38,6 @@ public class CinemaService {
     }
 
     public void deleteByName(String name){
-        if(!cinemaRepository.existsByName(name)){
-            throw new RuntimeException("Не удалось найти кинотеатр!");
-        }
-        cinemaRepository.delete(name);
-    }
-}
+    int deleted = cinemaRepository.deleteByName(name);
+    if (deleted == 0) throw new RuntimeException("Не удалось найти кинотеатр!");
+}}

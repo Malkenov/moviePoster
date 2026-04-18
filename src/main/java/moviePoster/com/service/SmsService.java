@@ -4,6 +4,7 @@ import com.vonage.client.VonageClient;
 import com.vonage.client.sms.MessageStatus;
 import com.vonage.client.sms.SmsSubmissionResponse;
 import com.vonage.client.sms.messages.TextMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Slf4j
 @Service
 public class SmsService {
 
@@ -34,23 +35,23 @@ public class SmsService {
     /* это встроенный Spring класс, чтобы отправлять HTTP-запросы,
     он позволяет общаться с внешним API (SMS-провайдером) */
 
-    public boolean sendSms(String phone, String message){
-        try{
+    public boolean sendSms(String phone, String message) {
+        try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(apiToken);
 
             Map<String, Object> body = new HashMap<>();
-            body.put("to",phone);
-            body.put("from",sender);
-            body.put("message",message);
+            body.put("to", phone);
+            body.put("from", sender);
+            body.put("message", message);
 
-            HttpEntity<Map<String,Object>> request = new HttpEntity<>(body,headers);
-            ResponseEntity<String> response = restTemplate.postForEntity(apiUrl,request,String.class);
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, request, String.class);
 
             return response.getStatusCode().is2xxSuccessful();
         } catch (Exception e) {
-            System.out.println("Ошибка при отправке SMS: " + e.getMessage());
+            log.error("Ошибка при отправке SMS: {}", e.getMessage());
             return false;
         }
     }

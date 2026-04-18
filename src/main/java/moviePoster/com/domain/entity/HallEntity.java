@@ -3,13 +3,14 @@ package moviePoster.com.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "hall")
 public class HallEntity extends BaseEntity {
@@ -19,6 +20,6 @@ public class HallEntity extends BaseEntity {
 
 
     @ManyToOne
-    @JoinColumn(name = "cinema_id",unique = true)
+    @JoinColumn(name = "cinema_id")
     private CinemaEntity cinema;
 }

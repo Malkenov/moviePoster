@@ -10,33 +10,33 @@ import moviePoster.com.domain.document.MovieDocument;
 public interface MovieSearchRepository extends ElasticsearchRepository<MovieDocument, Long> {
 
     @Query("""
-{
-  "bool": {
-    "should": [
-      {
-        "multi_match": {
-          "query": "?0",
-          "fields": ["name^4", "title^3"],
-          "type": "best_fields",
-          "fuzziness": "AUTO",
-          "operator": "or"
-        }
-      },
-      {
-        "match_phrase": {
-          "name": { "query": "?0", "boost": 4 }
-        }
-      },
-      {
-        "match_phrase": {
-          "title": { "query": "?0", "boost": 3 }
-        }
-      }
-    ],
-    "minimum_should_match": 1
-  }
-}
-""")
+            {
+              "bool": {
+                "should": [
+                  {
+                    "multi_match": {
+                      "query": "?0",
+                      "fields": ["name^4", "title^3"],
+                      "type": "best_fields",
+                      "fuzziness": "AUTO",
+                      "operator": "or"
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "name": { "query": "?0", "boost": 4 }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "title": { "query": "?0", "boost": 3 }
+                    }
+                  }
+                ],
+                "minimum_should_match": 1
+              }
+            }
+            """)
     Page<MovieDocument> searchByQuery(String query, Pageable pageable);
 
 }

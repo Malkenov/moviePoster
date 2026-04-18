@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class MovieRequestDto {
 
-    private String title;
+    private String name;
     private String description;
     private Integer duration;
     private Double ageRating;

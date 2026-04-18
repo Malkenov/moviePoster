@@ -3,12 +3,13 @@ package moviePoster.com.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "auth_sessions")
 public class AuthSessions extends BaseEntity {

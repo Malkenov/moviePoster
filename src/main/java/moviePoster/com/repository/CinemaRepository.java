@@ -11,5 +11,5 @@ public interface CinemaRepository extends JpaRepository<CinemaEntity, Long> {
 
     boolean existsByName(String name);
 
-    void delete(String name);
+    int deleteByName(String name);
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import moviePoster.com.domain.entity.Token.TokenEntity;
 import moviePoster.com.dto.enums.Role;
 import org.hibernate.annotations.ColumnDefault;
@@ -21,9 +22,9 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-@Table(name = "userSession")
+@Table(name = "user_session")
 public class UserSessionEntity extends BaseEntity implements UserDetails {
 
     @NotBlank
@@ -76,8 +77,8 @@ public class UserSessionEntity extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<OtpCodeEntity> otpCode;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private Role role;
 
     @OneToMany(mappedBy = "users")

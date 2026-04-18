@@ -1,4 +1,4 @@
-package moviePoster.com.service.authService;
+package moviePoster.com.service.authservice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -3,6 +3,7 @@ package moviePoster.com.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "city")
 public class CityEntity extends BaseEntity {
@@ -20,7 +21,7 @@ public class CityEntity extends BaseEntity {
 
 
     @OneToMany(mappedBy = "city")
-    private UserSessionEntity user;
+    private List<UserSessionEntity> user;
 
     @OneToMany(mappedBy = "city")
     private List<CinemaEntity> cinemas;

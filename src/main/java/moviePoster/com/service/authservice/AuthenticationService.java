@@ -1,8 +1,9 @@
-package moviePoster.com.service.authService;
+package moviePoster.com.service.authservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import moviePoster.com.dto.request.RegistrationRequestDto;
 import moviePoster.com.dto.request.AuthenticationRequestDto;
@@ -33,10 +34,11 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    @Transactional
     public AuthenticationResponseDto register(RegistrationRequestDto dto) {
         var user = UserSessionEntity.builder()
                 .name(dto.getName())
-                .dateOfBirthday(dto.getDateOfBirthday())
+                .dateOfBirth(dto.getDateOfBirth())
                 .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .role(Role.USER)
@@ -46,6 +48,7 @@ public class AuthenticationService {
 
         var jwtAccessToken = jwtService.generateAccessToken(user);
         var jwtRefreshToken = jwtService.generateRefreshToken(user);
+        saveUserToken(user, jwtAccessToken);
 
         return AuthenticationResponseDto.builder()
                 .accessToken(jwtAccessToken)
@@ -160,7 +163,7 @@ public class AuthenticationService {
 
         UserSessionEntity users = tokenEntity.getUsers();
 
-        String newAccessToken = jwtService.generateRefreshToken(users);
+        String newAccessToken = jwtService.generateAccessToken(users);
 
         return new AuthenticationResponseDto(
                 newAccessToken,

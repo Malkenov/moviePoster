@@ -2,6 +2,7 @@ package moviePoster.com.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "movie")
 public class MovieEntity extends BaseEntity {
@@ -51,7 +52,7 @@ public class MovieEntity extends BaseEntity {
     )
     private Set<GenreEntity> genres = new HashSet<>();
 
-    @OneToMany(mappedBy = "movies")
+    @OneToMany(mappedBy = "movie")
     private List<SessionEntity> sessionList = new ArrayList<>();
 
 

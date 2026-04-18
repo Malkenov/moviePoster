@@ -36,11 +36,8 @@ public class MovieService {
     private final MoviePatchMapper moviePatchMapper;
     private final CacheService cacheService;
     private final MovieSearchRepository movieSearchRepository;
-    private final MovieDocument document;
 
-    private final RestTemplateBuilder restTemplateBuilder;
-
-    public MovieResponseDto create(MovieRequestDto dto){
+    public MovieResponseDto create(MovieRequestDto dto) {
 
         Set<GenreEntity> genreSet = new HashSet<>(genreRepository.findAllById(dto.getGenreId()));
         MovieEntity movie = movieMapper.toEntity(dto);
@@ -51,28 +48,25 @@ public class MovieService {
         MovieDocument document = MovieDocument.builder()
                 .id(saved.getId())
                 .name(saved.getName())
-                .title(saved.getTitle())
                 .build();
-
         movieSearchRepository.save(document);
-
 
         return movieMapper.toDto(saved);
     }
 
-    public Page<MovieDocument> searchMovies(String text, int page, int size){
+    public Page<MovieDocument> searchMovies(String text, int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
         return movieSearchRepository.searchByQuery(text, pageable);
     }
 
-    public List<MovieResponseDto> getAll(){
+    public List<MovieResponseDto> getAll() {
 
         String key = "ALL_MOVIE";
 
         List<MovieResponseDto> cached = (List<MovieResponseDto>) cacheService.get(key);
-        if(cached != null){
+        if (cached != null) {
             return cached;
         }
 
@@ -81,34 +75,33 @@ public class MovieService {
                 .map(movieMapper::toDto)
                 .toList();
 
-        cacheService.put(key,movies, Duration.ofMinutes(10));
+        cacheService.put(key, movies, Duration.ofMinutes(10));
 
         return movies;
     }
 
-    public MovieResponseDto getByName(String name){
+    public MovieResponseDto getByName(String name) {
         MovieEntity movie = movieRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден!"));
         return movieMapper.toDto(movie);
     }
 
-    public Page<MovieResponseDto> getMovieByPage(int page, int size, String sortBy){
-        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
+    public Page<MovieResponseDto> getMovieByPage(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return movieRepository.findAll(pageable)
                 .map(movieMapper::toDto);
     }
 
-    public MovieResponseDto updateMovie(String name,MovieRequestDto dto){
+    public MovieResponseDto updateMovie(String name, MovieRequestDto dto) {
         MovieEntity movie = movieRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден!"));
-        movieMapper.toEntity(dto);
-        moviePatchMapper.updateMovieFromDto(dto,movie);
+        moviePatchMapper.updateMovieFromDto(dto, movie);
         movieRepository.save(movie);
         return movieMapper.toDto(movie);
     }
 
-    public void deleteByName(String name){
-        if(!movieRepository.existsByName(name)){
+    public void deleteByName(String name) {
+        if (!movieRepository.existsByName(name)) {
             throw new RuntimeException("Нету такого фильма в списке!");
         }
         movieRepository.deleteByName(name);

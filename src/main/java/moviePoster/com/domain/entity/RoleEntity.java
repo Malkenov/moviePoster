@@ -2,6 +2,7 @@ package moviePoster.com.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "role")
 public class RoleEntity extends BaseEntity {
@@ -19,7 +20,7 @@ public class RoleEntity extends BaseEntity {
 
 
     @OneToMany(mappedBy = "role")
-    private UserSessionEntity user;
+    private List<UserSessionEntity> user;
 
     @ManyToMany
     @JoinTable(

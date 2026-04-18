@@ -12,7 +12,7 @@ import java.util.Set;
 @Builder
 public class MovieResponseDto {
 
-    private String title;
+    private String name;
     private String description;
     private Integer duration;
     private Double ageRating;

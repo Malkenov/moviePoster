@@ -22,11 +22,12 @@ public class TokenEntity {
     private String token;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private TokenType tokenType = TokenType.BEARER;
 
     private boolean revoked;
 
-    public boolean expired;
+    private boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

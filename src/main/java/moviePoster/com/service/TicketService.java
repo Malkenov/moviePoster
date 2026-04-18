@@ -15,7 +15,7 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final KafkaPurchasedProducer purchasedProducer;
 
-    public void purchaseTicked(Long ticketId){
+    public void purchaseTicket(Long ticketId){
         TicketEntity ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Билет не найден!"));
 
@@ -24,7 +24,7 @@ public class TicketService {
     dto.setTicketId(ticket.getId());
     dto.setUserEmail(ticket.getUser().getEmail());
     dto.setUserName(ticket.getUser().getName());
-    dto.setMovieName(String.valueOf(ticket.getSession().getMovies()));
+    dto.setMovieName(ticket.getSession().getMovies().getName());
 
     purchasedProducer.send(dto);
 }}

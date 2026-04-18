@@ -25,13 +25,13 @@ public class KafkaController {
 
     @PostMapping("/ticket-purchased/{ticketId}")
     public ResponseEntity<String> sendTicket(@PathVariable Long ticketId){
-        ticketService.purchaseTicked(ticketId);
+        ticketService.purchaseTicket(ticketId);
         return ResponseEntity.ok("Сообщение отправлно!");
     }
 
     @PostMapping("/ticket-cancelled/{ticketId}")
     public ResponseEntity<String> sendCancelled(@PathVariable Long ticketId){
-        ticketService.purchaseTicked(ticketId);
+        ticketService.purchaseTicket(ticketId);
         return ResponseEntity.ok("Возврат в обработке!");
     }
 

@@ -1,8 +1,8 @@
 package moviePoster.com.controller;
 
 import lombok.RequiredArgsConstructor;
-import moviePoster.com.service.authService.AuthenticationService;
-import moviePoster.com.service.authService.LogoutService;
+import moviePoster.com.service.authservice.AuthenticationService;
+import moviePoster.com.service.authservice.LogoutService;
 import moviePoster.com.dto.request.AuthenticationRequestDto;
 import moviePoster.com.dto.request.RefreshTokenRequest;
 import moviePoster.com.dto.request.RegistrationRequestDto;

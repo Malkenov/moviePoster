@@ -25,7 +25,7 @@ public class MovieReminderDto {
 
     @NotNull(message = "Id билета не может быть null!")
     @Positive(message = "Id билета не может быть отрицательным числом!")
-    private String ticketId;
+    private Long ticketId;
 
     @NotNull(message = "Время и дата сеанса не может быть пустым!")
     private LocalDateTime showTime;

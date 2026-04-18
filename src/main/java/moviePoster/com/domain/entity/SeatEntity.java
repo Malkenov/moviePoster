@@ -3,6 +3,7 @@ package moviePoster.com.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import moviePoster.com.dto.enums.SeatStatus;
 
 import java.time.LocalDateTime;
@@ -11,14 +12,10 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "seat")
-public class SeatEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class SeatEntity extends BaseEntity {
 
     @Column
     private Long seatNumber;

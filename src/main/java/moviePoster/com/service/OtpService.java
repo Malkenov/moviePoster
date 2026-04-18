@@ -5,6 +5,7 @@ import moviePoster.com.domain.entity.OtpCodeEntity;
 import moviePoster.com.repository.OtpRepository;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ public class OtpService {
 
     private final OtpRepository otpRepository;
     private final SmsService smsService;
-    private final Random random = new Random();
+    private final SecureRandom random = new SecureRandom();
     private final int MAX_ATTEMPTS = 5;
 
     public OtpCodeEntity generateOtp(String phone, String purpose){

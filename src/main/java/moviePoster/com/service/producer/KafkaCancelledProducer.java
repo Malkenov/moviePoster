@@ -22,10 +22,10 @@ public class KafkaCancelledProducer {
         kafkaTemplate.send(KafkaTopicsConfig.TICKET_CANCELLED, dto)
                 .whenComplete((result, ex) -> {
                     if (ex == null) {
-                        log.info("Сообщение отправлено: {}", dto);
-                        sendToDlq(dto);
-                    }else{
                         log.error("Ошибка в отправке");
+                    }else{
+                        sendToDlq(dto);
+                        log.info("Сообщение отправлено: {}", dto);
                     }
                 });
     }
