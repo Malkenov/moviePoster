@@ -13,13 +13,15 @@ import java.util.List;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface AfishaMapper {
 
+    @Mapping(target = "title", source = "name")
     @Mapping(target = "sessions", ignore = true)
-    @Mapping(target = "title", source = "name")   // ← MovieEntity.name → AfishaMovieResponse.title
     @Mapping(target = "genres",
             expression = "java(movie.getGenres().stream().map(g -> g.getName()).collect(java.util.stream.Collectors.toSet()))")
     AfishaMovieResponse toMovie(MovieEntity movie);
 
-    @Mapping(target = "cinemaName", source = "cinemas.name")   // работает после фикса pom.xml
+    @Mapping(target = "cinemaName",
+            expression = "java(session.getCinemas() != null ? session.getCinemas().getName() : null)")
+    @Mapping(target = "price", ignore = true)
     SessionShortResponse toSession(SessionEntity session);
 
     List<SessionShortResponse> toSessionList(List<SessionEntity> sessions);

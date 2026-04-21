@@ -18,5 +18,7 @@ public interface SessionMapper {
     @Mapping(target = "seat", ignore = true)
     SessionEntity toEntity(SessionRequestDto dto);
 
+    @Mapping(target = "movie",  expression = "java(session.getMovies()  != null ? session.getMovies().getName()  : null)")
+    @Mapping(target = "cinema", expression = "java(session.getCinemas() != null ? session.getCinemas().getName() : null)")
     SessionResponseDto toDto(SessionEntity session);
 }

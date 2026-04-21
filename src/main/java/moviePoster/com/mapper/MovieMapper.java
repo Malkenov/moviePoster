@@ -12,6 +12,10 @@ public interface MovieMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "isPremiere", ignore = true)
+    @Mapping(target = "ageLimit", ignore = true)
+    @Mapping(target = "language", ignore = true)
+    @Mapping(target = "releaseDate", ignore = true)
     @Mapping(target = "genres", ignore = true)
     @Mapping(target = "sessionList", ignore = true)
     @Mapping(target = "reviews", ignore = true)
@@ -21,4 +25,3 @@ public interface MovieMapper {
             expression = "java(movie.getGenres().stream().map(g -> g.getName()).collect(java.util.stream.Collectors.toSet()))")
     MovieResponseDto toDto(MovieEntity movie);
 }
-

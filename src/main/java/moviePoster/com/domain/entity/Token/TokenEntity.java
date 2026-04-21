@@ -33,4 +33,3 @@ public class TokenEntity {
     @JoinColumn(name = "user_id")
     private UserSessionEntity users;
 }
-

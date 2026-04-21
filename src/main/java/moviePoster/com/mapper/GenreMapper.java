@@ -1,6 +1,5 @@
 package moviePoster.com.mapper;
 
-
 import moviePoster.com.dto.request.GenreRequestDto;
 import moviePoster.com.dto.response.GenreResponseDto;
 import moviePoster.com.domain.entity.GenreEntity;

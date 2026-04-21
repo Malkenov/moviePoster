@@ -16,11 +16,10 @@ import java.util.Set;
 @Table(name = "genre")
 public class GenreEntity extends BaseEntity {
 
-    @Column(name = "name",unique = true,nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-
     @ManyToMany(mappedBy = "genres")
+    @Builder.Default
     private Set<MovieEntity> movies = new HashSet<>();
-
 }

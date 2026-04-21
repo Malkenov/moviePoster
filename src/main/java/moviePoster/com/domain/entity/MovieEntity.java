@@ -28,21 +28,20 @@ public class MovieEntity extends BaseEntity {
     @Column(name = "isPremiere")
     private Boolean isPremiere;
 
-    @Column(name = "age_limit",nullable = false)
+    @Column(name = "age_limit", nullable = false)
     private int ageLimit;
 
-    @Column(name = "duration",nullable = false)
+    @Column(name = "duration", nullable = false)
     private Integer duration;
 
-    @Column(name = "age_rating",nullable = false)
+    @Column(name = "age_rating", nullable = false)
     private Double ageRating;
 
-    @Column(name = "language",nullable = false)
+    @Column(name = "language", nullable = false)
     private String language;
 
     @Column(name = "release_date")
     private LocalDate releaseDate;
-
 
     @ManyToMany
     @JoinTable(
@@ -50,12 +49,14 @@ public class MovieEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
+    @Builder.Default
     private Set<GenreEntity> genres = new HashSet<>();
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movies")
+    @Builder.Default
     private List<SessionEntity> sessionList = new ArrayList<>();
 
-
     @OneToMany(mappedBy = "movies")
+    @Builder.Default
     private List<ReviewEntity> reviews = new ArrayList<>();
 }

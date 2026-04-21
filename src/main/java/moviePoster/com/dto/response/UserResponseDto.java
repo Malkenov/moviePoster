@@ -1,6 +1,5 @@
 package moviePoster.com.dto.response;
 
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +16,5 @@ public class UserResponseDto {
     private LocalDate dateOfBirth;
     private String phone;
     private String email;
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 }

@@ -12,11 +12,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 
 @Setter
 @Getter
@@ -28,15 +27,15 @@ import java.util.List;
 public class UserSessionEntity extends BaseEntity implements UserDetails {
 
     @NotBlank
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @NotNull
-    @Column(name = "date_of_birth",nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
     @NotNull
-    @Column(name = "phone",nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phone;
 
     @NotBlank
@@ -44,70 +43,73 @@ public class UserSessionEntity extends BaseEntity implements UserDetails {
     private String email;
 
     @NotBlank
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "phone_verified", nullable = false)
+    private boolean phoneVerified;
 
-    @Column(name = "is_phone_verified", nullable = false)
-    private boolean isPhoneVerified;
+    @Column(name = "email_verified", nullable = false)
+    private boolean emailVerified;
 
-    @Column(name = "is_email_verified",nullable = false)
-    private boolean isEmailVerified;
-
-    @Column(name = "is_active")
+    @Column(name = "active")
     @ColumnDefault("true")
-    private boolean isActive;
+    @Builder.Default
+    private boolean active = true;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
     private CityEntity city;
 
     @OneToMany(mappedBy = "user")
-    private List<FavouritesCinemaEntity> favouritesCinemas;
+    @Builder.Default
+    private List<FavouritesCinemaEntity> favouritesCinemas = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<TicketEntity> tickets;
+    @Builder.Default
+    private List<TicketEntity> tickets = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<ReviewEntity> reviews;
+    @Builder.Default
+    private List<ReviewEntity> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<AuthSessions> authSessions;
+    @Builder.Default
+    private List<AuthSessions> authSessions = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<OtpCodeEntity> otpCode;
+    @Builder.Default
+    private List<OtpCodeEntity> otpCode = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
 
     @OneToMany(mappedBy = "users")
-    private List<TokenEntity> tokenEntities;
+    @Builder.Default
+    private List<TokenEntity> tokenEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<SeatEntity> seatEntity;
-
+    @Builder.Default
+    private List<SeatEntity> seatEntity = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-
-
+    @Override
+    public String getUsername() { return email; }
 
     @Override
-    public String getUsername() {return email;}
+    public boolean isAccountNonExpired() { return true; }
 
     @Override
-    public boolean isAccountNonExpired() {return true;}
+    public boolean isAccountNonLocked() { return true; }
 
     @Override
-    public boolean isAccountNonLocked() {return true;}
+    public boolean isCredentialsNonExpired() { return true; }
 
     @Override
-    public boolean isCredentialsNonExpired() {return true;}
-
-    @Override
-    public boolean isEnabled() {return true;}
+    public boolean isEnabled() { return true; }
 }

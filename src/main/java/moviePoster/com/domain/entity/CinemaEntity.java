@@ -1,6 +1,5 @@
 package moviePoster.com.domain.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -17,23 +16,25 @@ import java.util.List;
 @Table(name = "cinema")
 public class CinemaEntity extends BaseEntity {
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "address",nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
-
 
     @ManyToOne
     @JoinColumn(name = "city_id")
     private CityEntity city;
 
-    @OneToMany(mappedBy = "cinema")
+    @OneToMany(mappedBy = "cinemas")
+    @Builder.Default
     private List<SessionEntity> sessionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "cinema")
-    private List<FavouritesCinemaEntity> favouritesCinemas;
+    @Builder.Default
+    private List<FavouritesCinemaEntity> favouritesCinemas = new ArrayList<>();
 
     @OneToMany(mappedBy = "cinema")
-    private List<HallEntity> hall;
+    @Builder.Default
+    private List<HallEntity> hall = new ArrayList<>();
 }
