@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 @Entity
 @Table(name = "ticket", uniqueConstraints = @UniqueConstraint(columnNames = {"session_id", "row", "place"})) //для избежании покупки одинаковых мест

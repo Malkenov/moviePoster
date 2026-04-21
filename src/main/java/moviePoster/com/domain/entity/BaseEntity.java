@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 @MappedSuperclass
 public abstract class BaseEntity {

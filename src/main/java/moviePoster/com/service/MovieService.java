@@ -65,6 +65,7 @@ public class MovieService {
 
         String key = "ALL_MOVIE";
 
+        @SuppressWarnings("unchecked")
         List<MovieResponseDto> cached = (List<MovieResponseDto>) cacheService.get(key);
         if (cached != null) {
             return cached;
@@ -95,6 +96,7 @@ public class MovieService {
     public MovieResponseDto updateMovie(String name, MovieRequestDto dto) {
         MovieEntity movie = movieRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден!"));
+        movieMapper.toEntity(dto);
         moviePatchMapper.updateMovieFromDto(dto, movie);
         movieRepository.save(movie);
         return movieMapper.toDto(movie);
