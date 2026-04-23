@@ -15,7 +15,7 @@ public interface SessionRepository extends JpaRepository<SessionEntity, Long> {
 
     List<SessionEntity> findByCinemas_Name(String name);
 
-    List<SessionEntity> findCinemas_City(String name);
+    List<SessionEntity> findByCinemas_City_Name(String name);
 
     boolean existsByMovies_Name(String name);
 
