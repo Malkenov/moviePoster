@@ -1,26 +1,24 @@
 {
-  "settings": {
-    "analysis": {
-      "filter": {
-        "russian_stop": {
-          "type": "stop",
-          "stopwords": "_russian_"
-        },
-        "russian_stemmer": {
-          "type": "stemmer",
-          "language": "russian"
-        }
+  "analysis": {
+    "filter": {
+      "russian_stop": {
+        "type": "stop",
+        "stopwords": "_russian_"
       },
-      "analyzer": {
-        "russian_analyzer": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "russian_stop",
-            "russian_stemmer"
-          ]
-        }
+      "russian_stemmer": {
+        "type": "stemmer",
+        "language": "russian"
+      }
+    },
+    "analyzer": {
+      "russian_analyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase",
+          "russian_stop",
+          "russian_stemmer"
+        ]
       }
     }
   }
