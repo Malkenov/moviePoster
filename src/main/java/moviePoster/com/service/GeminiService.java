@@ -1,6 +1,6 @@
 package moviePoster.com.service;
 
-import lombok.RequiredArgsConstructor;
+
 import moviePoster.com.domain.entity.GenreEntity;
 import moviePoster.com.domain.entity.MovieEntity;
 import moviePoster.com.dto.response.AiRecommendationResponse;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class GeminiService {
 
     private final MovieRepository movieRepository;
@@ -43,12 +42,6 @@ public class GeminiService {
      */
     public AiReviewResponse generateReview(String movieTitle) {
         String prompt;
-
-        // Ищем фильм в нашей БД
-        movieRepository.findByName(movieTitle).ifPresentOrElse(
-                movie -> {}, // просто проверяем наличие
-                () -> {}
-        );
 
         var movieOpt = movieRepository.findByName(movieTitle);
 

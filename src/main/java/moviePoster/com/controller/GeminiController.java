@@ -1,7 +1,10 @@
 package moviePoster.com.controller;
 
 import lombok.RequiredArgsConstructor;
+import moviePoster.com.dto.response.AiRecommendationResponse;
+import moviePoster.com.dto.response.AiReviewResponse;
 import moviePoster.com.service.GeminiService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,12 +15,12 @@ public class GeminiController {
     private final GeminiService geminiService;
 
     @GetMapping("/review")
-    public String generateReview(@RequestParam String title) {
-        return geminiService.generateReview(title);
+    public ResponseEntity<AiReviewResponse> generateReview(@RequestParam String title) {
+        return ResponseEntity.ok(geminiService.generateReview(title));
     }
 
     @GetMapping("/recommend")
-    public String recommend(@RequestParam String title) {
-        return geminiService.recommendSimilar(title);
+    public ResponseEntity<AiRecommendationResponse> recommend(@RequestParam String title) {
+        return ResponseEntity.ok(geminiService.recommendSimilar(title));
     }
 }

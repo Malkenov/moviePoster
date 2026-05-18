@@ -5,6 +5,7 @@ import moviePoster.com.domain.entity.MovieEntity;
 import moviePoster.com.domain.entity.ReviewEntity;
 import moviePoster.com.domain.entity.UserSessionEntity;
 import moviePoster.com.dto.request.ReviewRequestDto;
+import moviePoster.com.dto.response.AiReviewResponse;
 import moviePoster.com.dto.response.ReviewResponseDto;
 import moviePoster.com.repository.MovieRepository;
 import moviePoster.com.repository.ReviewRepository;
@@ -46,7 +47,7 @@ public class ReviewService {
                 .build();
     }
 
-    public String getAiReview(String movieName) {
+    public AiReviewResponse getAiReview(String movieName) {
         movieRepository.findByName(movieName)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден: " + movieName));
         return geminiService.generateReview(movieName);

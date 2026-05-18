@@ -48,6 +48,7 @@ public class MovieService {
         }
         List<MovieResponseDto> movies = movieRepository.findAll()
                 .stream()
+                .limit(20)
                 .map(movieMapper::toDto)
                 .toList();
         cacheService.put(key, movies, Duration.ofMinutes(10));
