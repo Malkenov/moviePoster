@@ -24,6 +24,8 @@ public class CinemaService {
         return cinemaMapper.toDto(saved);
     }
 
+    //-------------------------------------------------------------------------------
+
     public List<CinemaResponseDto> getAll(){
         return cinemaRepository.findAll()
                 .stream()
@@ -31,13 +33,18 @@ public class CinemaService {
                 .toList();
     }
 
+    //-------------------------------------------------------------------------------
+
     public CinemaResponseDto getByName(String name){
         CinemaEntity cinema = cinemaRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Не удалось найти кинотеатр!"));
         return cinemaMapper.toDto(cinema);
     }
 
+    //-------------------------------------------------------------------------------
+
     public void deleteByName(String name){
     int deleted = cinemaRepository.deleteByName(name);
     if (deleted == 0) throw new RuntimeException("Не удалось найти кинотеатр!");
 }}
+

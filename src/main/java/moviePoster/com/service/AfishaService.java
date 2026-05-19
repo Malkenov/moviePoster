@@ -39,7 +39,7 @@ public class AfishaService {
             int size
     ) {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("title").ascending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
 
         LocalDateTime startOfDay = date != null ? date.atStartOfDay() : null;
         LocalDateTime endOfDay   = date != null ? date.plusDays(1).atStartOfDay() : null;

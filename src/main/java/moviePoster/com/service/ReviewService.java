@@ -47,11 +47,15 @@ public class ReviewService {
                 .build();
     }
 
+    //-------------------------------------------------------------------------------
+
     public AiReviewResponse getAiReview(String movieName) {
         movieRepository.findByName(movieName)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден: " + movieName));
         return geminiService.generateReview(movieName);
     }
+
+    //-------------------------------------------------------------------------------
 
     public List<ReviewResponseDto> getByMovie(String movieName) {
         return reviewRepository.findByMovies_Name(movieName)

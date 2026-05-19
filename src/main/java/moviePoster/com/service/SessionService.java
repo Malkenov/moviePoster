@@ -45,12 +45,16 @@ public class SessionService {
         return sessionMapper.toDto(save);
     }
 
+    //-------------------------------------------------------------------------------
+
     public List<SessionResponseDto> getAll(){
         return sessionRepository.findAll()
                 .stream()
                 .map(sessionMapper::toDto)
                 .toList();
     }
+
+    //-------------------------------------------------------------------------------
 
     public List<SessionResponseDto> getByMovieName(String name){
         return sessionRepository.findByMovies_Name(name)
@@ -66,11 +70,15 @@ public class SessionService {
                 .toList();
     }
 
+    //-------------------------------------------------------------------------------
+
     public Page<SessionResponseDto> getSessionByPage(int page, int size, String sortBy){
         Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
         return sessionRepository.findAll(pageable)
                 .map(sessionMapper::toDto);
     }
+
+    //-------------------------------------------------------------------------------
 
     public void delete(String name) {
         if (!sessionRepository.existsByMovies_Name(name)) {

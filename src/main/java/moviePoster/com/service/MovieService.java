@@ -39,6 +39,8 @@ public class MovieService {
         return movieMapper.toDto(saved);
     }
 
+    //-------------------------------------------------------------------------------
+
     public List<MovieResponseDto> getAll() {
         String key = "ALL_MOVIE";
         @SuppressWarnings("unchecked")
@@ -55,17 +57,23 @@ public class MovieService {
         return movies;
     }
 
+    //-------------------------------------------------------------------------------
+
     public MovieResponseDto getByName(String name) {
         MovieEntity movie = movieRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Фильм не найден!"));
         return movieMapper.toDto(movie);
     }
 
+    //-------------------------------------------------------------------------------
+
     public Page<MovieResponseDto> getMovieByPage(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return movieRepository.findAll(pageable)
                 .map(movieMapper::toDto);
     }
+
+    //-------------------------------------------------------------------------------
 
     public MovieResponseDto updateMovie(String name, MovieRequestDto dto) {
         MovieEntity movie = movieRepository.findByName(name)
@@ -74,6 +82,8 @@ public class MovieService {
         movieRepository.save(movie);
         return movieMapper.toDto(movie);
     }
+
+    //-------------------------------------------------------------------------------
 
     public void deleteByName(String name) {
         if (!movieRepository.existsByName(name)) {

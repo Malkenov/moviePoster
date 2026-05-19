@@ -89,6 +89,8 @@ public class GeminiService {
         return parseReview(movieTitle, raw);
     }
 
+    //-------------------------------------------------------------------------------
+
     /**
      * Рекомендации похожих фильмов — с учётом фильмов из нашей БД
      */
@@ -125,6 +127,8 @@ public class GeminiService {
         return new AiRecommendationResponse(movieTitle, raw);
     }
 
+    //-------------------------------------------------------------------------------
+
     /**
      * Свободный вопрос о кино
      */
@@ -145,12 +149,16 @@ public class GeminiService {
         }
     }
 
+    //-------------------------------------------------------------------------------
+
     private AiReviewResponse parseReview(String title, String raw) {
         String genre = extractField(raw, "Жанр:");
         String plot = extractField(raw, "Сюжет:");
         String verdict = extractField(raw, "Стоит смотреть:");
         return new AiReviewResponse(title, genre, plot, verdict, raw);
     }
+
+    //-------------------------------------------------------------------------------
 
     private String extractField(String text, String label) {
         for (String line : text.split("\n")) {
